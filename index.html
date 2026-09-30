@@ -6,38 +6,65 @@
 <title>Camino al Terrero</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+    --bg:#070914;
+    --bg2:#10152a;
+    --card:#151c35;
+    --card2:#1d2748;
+    --red:#ff304f;
+    --red2:#ff6178;
+    --blue:#3278ff;
+    --cyan:#25d9ff;
+    --gold:#ffc928;
+    --green:#35e58c;
+    --purple:#a66cff;
+    --white:#f8faff;
+    --muted:#aeb7d0;
+    --shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
 *{
     box-sizing:border-box;
 }
 
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#07111f;
-    color:white;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255,48,79,.14), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(50,120,255,.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(166,108,255,.12), transparent 30%),
+        var(--bg);
+    color:var(--white);
+    font-family:'Montserrat',Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.08;
+    background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size:40px 40px;
+}
+
+button,
+input{
+    font-family:inherit;
 }
 
 button{
-    border:0;
-    border-radius:12px;
-    padding:14px 18px;
-    font-size:15px;
-    font-weight:bold;
     cursor:pointer;
-    transition:.25s;
-}
-
-button:hover{
-    transform:translateY(-3px);
-    filter:brightness(1.15);
-}
-
-button:disabled{
-    cursor:not-allowed;
 }
 
 .hidden{
-    display:none!important;
+    display:none !important;
 }
 
 /* =========================
@@ -49,623 +76,1124 @@ button:disabled{
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:25px;
-    background:
-    radial-gradient(circle at top,#1b416c 0%,#07111f 60%);
+    padding:30px 15px;
 }
 
 .creation-box{
-    width:100%;
-    max-width:850px;
-    background:#0d1b2e;
-    border:1px solid #315477;
-    border-radius:22px;
-    padding:32px;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    width:min(850px,100%);
+    padding:38px;
+    border-radius:30px;
+    background:
+        linear-gradient(145deg,rgba(29,39,72,.97),rgba(12,17,35,.97));
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:
+        0 0 80px rgba(50,120,255,.13),
+        var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.creation-box::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:var(--red);
+    filter:blur(130px);
+    opacity:.15;
+    top:-180px;
+    right:-100px;
 }
 
 .logo{
     text-align:center;
-    font-size:40px;
+    position:relative;
+}
+
+.logo h1{
+    margin:0;
+    font-family:'Anton',sans-serif;
+    font-size:clamp(48px,8vw,82px);
+    letter-spacing:2px;
+    line-height:.95;
+    text-transform:uppercase;
+    background:linear-gradient(90deg,#fff,var(--gold),var(--red2));
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 30px rgba(255,201,40,.12);
+}
+
+.logo p{
+    margin:12px 0 35px;
+    color:var(--muted);
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.section-title{
+    font-size:13px;
     font-weight:900;
-    color:#ffd166;
+    color:var(--gold);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin:25px 0 10px;
 }
 
-.subtitle{
-    text-align:center;
-    color:#9eb2c9;
-    margin:8px 0 30px;
-}
-
-input{
+.name-input{
     width:100%;
-    padding:15px;
-    margin-top:8px;
-    margin-bottom:25px;
-    border-radius:10px;
-    border:1px solid #315477;
-    background:#081525;
+    padding:17px 18px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#090d1d;
     color:white;
-    font-size:16px;
+    font-size:17px;
+    font-weight:700;
+    border:1px solid rgba(255,255,255,.1);
+    transition:.2s;
 }
 
-.islands{
+.name-input:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 20px rgba(37,217,255,.16);
+}
+
+.island-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:10px;
-    margin:12px 0 25px;
 }
 
-.island{
-    background:#172b44;
+.island-btn{
+    padding:15px 8px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:#0b1022;
     color:white;
+    font-weight:800;
+    transition:.2s;
 }
 
-.island.selected{
-    background:#e63946;
+.island-btn:hover{
+    transform:translateY(-3px);
+    border-color:var(--cyan);
 }
 
-.teams{
+.island-btn.selected{
+    background:linear-gradient(135deg,var(--blue),#674dff);
+    border-color:#91aaff;
+    box-shadow:0 0 22px rgba(50,120,255,.3);
+}
+
+.team-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:12px;
+    margin-top:12px;
 }
 
-.team{
-    background:#14263d;
-    color:white;
-    border:1px solid #294967;
-    text-align:left;
+.team-card{
+    padding:18px;
+    border-radius:18px;
+    background:rgba(7,10,25,.8);
+    border:1px solid rgba(255,255,255,.1);
+    transition:.2s;
+    position:relative;
+    overflow:hidden;
 }
 
-.team.selected{
-    border:2px solid #ffd166;
-    background:#203a5b;
+.team-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,255,255,.3);
+}
+
+.team-card.selected{
+    border:2px solid var(--gold);
+    box-shadow:0 0 25px rgba(255,201,40,.18);
 }
 
 .team-name{
     font-size:15px;
-    margin-bottom:7px;
+    font-weight:900;
 }
 
-.league{
-    font-size:12px;
-    color:#91a6bd;
+.team-league{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:5px;
 }
 
-#startButton{
+.team-colors{
+    display:flex;
+    gap:5px;
+    margin-top:12px;
+}
+
+.color-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.4);
+}
+
+.start-btn{
     width:100%;
     margin-top:25px;
-    background:#ffd166;
-    color:#111;
-    font-size:17px;
+    padding:18px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(90deg,var(--red),#ff7a43);
+    color:white;
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:0 10px 30px rgba(255,48,79,.22);
+    transition:.2s;
 }
 
-#startButton:disabled{
-    opacity:.3;
+.start-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(255,48,79,.35);
+}
+
+.start-btn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
 }
 
 /* =========================
-   JUEGO
+   APP
 ========================= */
 
 #game{
     min-height:100vh;
 }
 
-header{
+.topbar{
     position:sticky;
     top:0;
-    z-index:20;
-    background:#0b192a;
-    border-bottom:1px solid #294967;
-    padding:16px 25px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    z-index:50;
+    background:rgba(7,9,20,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.header-title{
-    color:#ffd166;
-    font-size:22px;
-    font-weight:900;
+.topbar-inner{
+    width:min(1250px,94%);
+    margin:auto;
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.game-logo{
+    font-family:'Anton';
+    font-size:27px;
+    letter-spacing:1px;
+    background:linear-gradient(90deg,var(--red2),var(--gold));
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .player-mini{
-    text-align:right;
-    font-size:13px;
-    color:#aebed1;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-nav{
+.player-avatar{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--red),var(--purple));
+    font-weight:900;
+}
+
+.player-mini-text{
+    font-size:12px;
+}
+
+.player-mini-text strong{
+    display:block;
+    font-size:14px;
+}
+
+.player-mini-text span{
+    color:var(--muted);
+}
+
+.nav{
+    width:min(1250px,94%);
+    margin:auto;
     display:flex;
     gap:8px;
-    padding:12px 20px;
-    background:#091625;
-    border-bottom:1px solid #203b58;
-    overflow-x:auto;
+    padding-bottom:10px;
 }
 
-nav button{
-    background:#14263d;
-    color:#c8d5e3;
+.nav button{
+    border:1px solid rgba(255,255,255,.08);
+    background:#0d1225;
+    color:#bac3dc;
+    padding:9px 13px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:800;
+    transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+    color:white;
+    background:linear-gradient(135deg,#27345e,#192443);
+    border-color:rgba(255,255,255,.2);
+}
+
+.main{
+    width:min(1250px,94%);
+    margin:30px auto 70px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    padding:30px;
+    border-radius:26px;
+    overflow:hidden;
+    background:
+        linear-gradient(125deg,rgba(255,48,79,.18),rgba(50,120,255,.13)),
+        var(--card);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:var(--shadow);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:var(--red);
+    filter:blur(120px);
+    opacity:.12;
+    right:-120px;
+    top:-100px;
+}
+
+.hero-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.hero h2{
+    margin:0;
+    font-family:'Anton';
+    font-size:clamp(32px,5vw,55px);
+    letter-spacing:1px;
+}
+
+.hero p{
+    color:var(--muted);
+    margin:7px 0 0;
+}
+
+.category-badge{
+    padding:10px 15px;
+    border-radius:30px;
+    background:linear-gradient(90deg,var(--gold),#ff8c32);
+    color:#17100a;
+    font-size:12px;
+    font-weight:900;
     white-space:nowrap;
 }
 
-nav button.active{
-    background:#e63946;
-    color:white;
+.stat-row{
+    position:relative;
+    z-index:2;
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
 }
 
-main{
-    max-width:1150px;
-    margin:auto;
-    padding:25px;
+.quick-stat{
+    background:rgba(6,9,20,.65);
+    padding:14px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.07);
 }
 
-.page{
-    display:none;
-}
-
-.page.active{
+.quick-stat span{
     display:block;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.quick-stat strong{
+    display:block;
+    font-size:22px;
+    margin-top:4px;
+}
+
+.progress{
+    height:6px;
+    background:#080c19;
+    border-radius:20px;
+    margin-top:9px;
+    overflow:hidden;
+}
+
+.progress div{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,var(--cyan),var(--blue));
+    transition:width .5s;
 }
 
 /* =========================
-   HISTORIA
+   STORY
 ========================= */
 
-.story-box{
-    background:linear-gradient(145deg,#11243b,#0c192b);
-    border:1px solid #315477;
-    border-radius:20px;
+.story-card{
+    margin-top:22px;
     padding:30px;
-    margin-bottom:20px;
+    border-radius:25px;
+    background:linear-gradient(145deg,var(--card),#10162c);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:var(--shadow);
+    animation:cardIn .4s ease;
 }
 
-.story-enter{
-    animation:storyEnter .5s ease;
-}
-
-@keyframes storyEnter{
-    0%{
+@keyframes cardIn{
+    from{
         opacity:0;
-        transform:translateY(30px) scale(.96);
+        transform:translateY(18px) scale(.98);
     }
-    60%{
-        transform:translateY(-4px) scale(1.01);
-    }
-    100%{
+    to{
         opacity:1;
-        transform:translateY(0) scale(1);
+        transform:none;
     }
 }
 
-.chapter{
-    color:#ffd166;
-    font-size:12px;
-    letter-spacing:1.5px;
+.story-label{
+    color:var(--gold);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:2px;
     text-transform:uppercase;
-    font-weight:bold;
-    margin-bottom:10px;
 }
 
 .story-title{
-    font-size:30px;
-    font-weight:900;
-    margin-bottom:16px;
+    font-family:'Anton';
+    font-size:34px;
+    margin:8px 0 12px;
 }
 
 .story-text{
-    color:#d4deea;
+    color:#dce2f2;
     line-height:1.7;
-    font-size:17px;
-    white-space:pre-line;
+    font-size:15px;
 }
-
-/* =========================
-   OPCIONES ANIMADAS
-========================= */
 
 .choices{
     display:grid;
+    grid-template-columns:repeat(2,1fr);
     gap:12px;
     margin-top:25px;
 }
 
 .choice{
+    padding:18px;
+    text-align:left;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:17px;
+    background:linear-gradient(145deg,#17203b,#0d1328);
+    color:white;
+    transition:.2s;
     position:relative;
     overflow:hidden;
-    background:#17314f;
-    border:1px solid #315477;
-    color:white;
-    text-align:left;
-    transform:translateX(0);
 }
 
 .choice::before{
     content:"";
     position:absolute;
-    left:-120%;
-    top:0;
-    width:100%;
-    height:100%;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.15),
-        transparent
-    );
-    transition:.5s;
-}
-
-.choice:hover::before{
-    left:120%;
+    inset:0;
+    background:linear-gradient(90deg,rgba(255,48,79,.15),transparent);
+    opacity:0;
+    transition:.2s;
 }
 
 .choice:hover{
-    background:#21466d;
-    border-color:#ffd166;
+    transform:translateY(-4px);
+    border-color:var(--red2);
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
-.choice.selected{
-    animation:choiceSelected .5s ease;
-    background:#e63946;
-    border-color:#ffd166;
-    transform:scale(1.02);
+.choice:hover::before{
+    opacity:1;
 }
 
-@keyframes choiceSelected{
-    0%{
-        transform:scale(1);
-    }
-    40%{
-        transform:scale(1.04);
-    }
-    70%{
-        transform:scale(.98);
-    }
-    100%{
-        transform:scale(1.02);
-    }
+.choice-title{
+    position:relative;
+    z-index:1;
+    font-size:14px;
+    font-weight:900;
+}
+
+.choice-desc{
+    position:relative;
+    z-index:1;
+    color:#9ea9c3;
+    font-size:11px;
+    line-height:1.5;
+    margin-top:6px;
 }
 
 /* =========================
-   COMPETICIÓN
+   PANELS
 ========================= */
 
-.competition-box{
-    background:
-    radial-gradient(circle at center,#183b60,#0b1728 70%);
-    border:2px solid #ffd166;
-    border-radius:22px;
-    padding:35px;
-    text-align:center;
-    animation:competitionIn .7s ease;
+.panel{
+    margin-top:22px;
+    padding:24px;
+    border-radius:23px;
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.09);
+    box-shadow:var(--shadow);
 }
 
-@keyframes competitionIn{
-    0%{
-        opacity:0;
-        transform:scale(.85);
-    }
-    70%{
-        transform:scale(1.03);
-    }
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
+.panel-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:17px;
 }
 
-.competition-title{
-    font-size:35px;
-    font-weight:900;
-    color:#ffd166;
-    margin-bottom:20px;
-}
-
-.opponent{
+.panel-title h3{
+    margin:0;
+    font-family:'Anton';
     font-size:27px;
-    font-weight:900;
-    margin:20px 0;
+    letter-spacing:.5px;
 }
 
-.opponent-category{
-    color:#a9bdd2;
-    margin-bottom:25px;
-}
-
-.grip-question{
-    font-size:20px;
-    color:#d9e3ed;
-    margin-bottom:20px;
+.panel-title span{
+    color:var(--muted);
+    font-size:11px;
 }
 
 /* =========================
-   ESTADÍSTICAS
+   STATS
 ========================= */
 
-.stat-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-
-.stat{
-    background:#102137;
-    border:1px solid #294967;
-    padding:17px;
-    border-radius:13px;
-}
-
-.stat-name{
-    color:#9fb2c8;
-    font-size:13px;
-}
-
-.stat-value{
-    color:#ffd166;
-    font-size:28px;
-    font-weight:bold;
-    margin-top:5px;
-}
-
-.bar{
-    height:7px;
-    background:#07111f;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:9px;
-}
-
-.bar-fill{
-    height:100%;
-    background:#e63946;
-    transition:width .5s ease;
-}
-
-/* =========================
-   TARJETAS
-========================= */
-
-.cards{
+.stats-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:15px;
+    gap:13px;
 }
 
-.card{
-    background:#102137;
-    border:1px solid #294967;
-    border-radius:14px;
-    padding:18px;
+.big-stat{
+    padding:17px;
+    border-radius:16px;
+    background:#0d1328;
 }
 
-.card h3{
-    color:#ffd166;
+.big-stat-head{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    font-weight:800;
+}
+
+.big-stat-head span{
+    color:var(--muted);
+}
+
+.big-progress{
+    height:9px;
+    background:#060914;
+    border-radius:20px;
+    margin-top:10px;
+    overflow:hidden;
+}
+
+.big-progress div{
+    height:100%;
+    border-radius:20px;
+    transition:.5s;
+    background:linear-gradient(90deg,var(--red),var(--gold));
 }
 
 /* =========================
-   NOTICIAS
+   CALENDAR
 ========================= */
 
-.news{
+.calendar-list,
+.news-list,
+.history-list,
+.offer-list{
     display:grid;
     gap:10px;
 }
 
-.news-item{
-    background:#102137;
-    border-left:4px solid #e63946;
-    padding:14px;
+.calendar-item,
+.news-item,
+.history-item,
+.offer-item{
+    background:#0c1225;
+    border:1px solid rgba(255,255,255,.07);
+    padding:15px;
+    border-radius:15px;
+}
+
+.calendar-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.calendar-date{
+    min-width:70px;
+    text-align:center;
+    padding:9px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#24345f,#152142);
+}
+
+.calendar-date strong{
+    display:block;
+    font-size:20px;
+}
+
+.calendar-date span{
+    color:var(--muted);
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.calendar-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.calendar-info span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.tag{
+    padding:6px 9px;
     border-radius:8px;
-    animation:newsIn .35s ease;
+    font-size:9px;
+    font-weight:900;
+    text-transform:uppercase;
 }
 
-@keyframes newsIn{
-    from{
-        opacity:0;
-        transform:translateX(-15px);
-    }
-    to{
-        opacity:1;
-        transform:translateX(0);
-    }
+.tag.blue{
+    background:rgba(50,120,255,.16);
+    color:#78a6ff;
 }
 
-.news-date{
-    font-size:11px;
-    color:#8298b1;
-    margin-bottom:5px;
+.tag.red{
+    background:rgba(255,48,79,.15);
+    color:#ff7588;
+}
+
+.tag.gold{
+    background:rgba(255,201,40,.15);
+    color:#ffd75a;
+}
+
+.tag.green{
+    background:rgba(53,229,140,.15);
+    color:#63eca7;
 }
 
 /* =========================
-   MODAL
+   NEWS
 ========================= */
 
-.modal{
+.news-item{
+    display:flex;
+    gap:13px;
+}
+
+.news-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    background:linear-gradient(135deg,#293967,#182443);
+}
+
+.news-item strong{
+    font-size:12px;
+}
+
+.news-item p{
+    margin:5px 0 0;
+    color:#aeb7d0;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================
+   MODAL SENIOR
+========================= */
+
+#seniorOverlay{
     position:fixed;
     inset:0;
-    z-index:100;
-    background:rgba(0,0,0,.8);
+    z-index:500;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:20px;
+    background:
+        radial-gradient(circle at center,rgba(255,201,40,.12),transparent 40%),
+        rgba(3,5,13,.94);
+    backdrop-filter:blur(10px);
 }
 
-.modal-box{
-    width:100%;
-    max-width:540px;
-    background:#102137;
-    border:1px solid #416487;
-    border-radius:20px;
-    padding:30px;
+.senior-box{
+    width:min(650px,100%);
     text-align:center;
-    animation:modalIn .35s ease;
+    padding:45px 35px;
+    border-radius:30px;
+    background:
+        linear-gradient(145deg,#202b50,#0d1328);
+    border:2px solid rgba(255,201,40,.55);
+    box-shadow:
+        0 0 80px rgba(255,201,40,.18),
+        0 30px 80px rgba(0,0,0,.7);
+    animation:seniorIn .55s cubic-bezier(.17,.89,.32,1.28);
 }
 
-@keyframes modalIn{
-    from{
+@keyframes seniorIn{
+    0%{
         opacity:0;
-        transform:scale(.85);
+        transform:scale(.65) translateY(40px);
     }
-    to{
+    70%{
+        transform:scale(1.04);
+    }
+    100%{
         opacity:1;
         transform:scale(1);
     }
 }
 
-.modal h2{
-    color:#ffd166;
-}
-
-.modal-buttons{
+.senior-icon{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+    border-radius:50%;
     display:flex;
     justify-content:center;
-    gap:10px;
-    margin-top:25px;
+    align-items:center;
+    font-size:43px;
+    background:linear-gradient(135deg,var(--gold),#ff7d32);
+    box-shadow:0 0 40px rgba(255,201,40,.35);
+    animation:pulseGold 1.5s infinite;
 }
 
-.accept{
-    background:#2a9d8f;
-    color:white;
+@keyframes pulseGold{
+    0%,100%{box-shadow:0 0 30px rgba(255,201,40,.25)}
+    50%{box-shadow:0 0 55px rgba(255,201,40,.55)}
 }
 
-.reject{
-    background:#e63946;
-    color:white;
+.senior-box .small{
+    color:var(--gold);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.senior-box h2{
+    font-family:'Anton';
+    font-size:clamp(38px,8vw,65px);
+    margin:8px 0 15px;
+    background:linear-gradient(90deg,#fff,var(--gold));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.senior-box p{
+    color:#c7cee0;
+    line-height:1.7;
+    font-size:14px;
+    max-width:500px;
+    margin:0 auto;
+}
+
+.accept-btn{
+    width:100%;
+    margin-top:28px;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(90deg,var(--gold),#ff8b32);
+    color:#17110a;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:0 10px 35px rgba(255,201,40,.22);
+    transition:.2s;
+}
+
+.accept-btn:hover{
+    transform:translateY(-3px) scale(1.01);
+    box-shadow:0 15px 45px rgba(255,201,40,.35);
 }
 
 /* =========================
-   RULETA
+   FIGHT
 ========================= */
 
+.fight-card{
+    margin-top:22px;
+    padding:30px;
+    border-radius:25px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(255,48,79,.13),transparent 45%),
+        var(--card);
+    border:1px solid rgba(255,255,255,.1);
+    text-align:center;
+    animation:cardIn .4s ease;
+}
+
+.fight-label{
+    color:var(--red2);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.fight-card h2{
+    font-family:'Anton';
+    font-size:42px;
+    margin:7px 0 20px;
+}
+
+.rival-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin:25px auto;
+}
+
+.rival-avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--red),var(--purple));
+    font-family:'Anton';
+    font-size:30px;
+    box-shadow:0 0 30px rgba(255,48,79,.2);
+}
+
+.vs{
+    font-family:'Anton';
+    font-size:25px;
+    color:var(--gold);
+}
+
+.rival-name{
+    font-family:'Anton';
+    font-size:27px;
+}
+
+.rival-info{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.fight-choices{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:25px;
+}
+
+.fight-btn{
+    border:none;
+    padding:19px;
+    border-radius:16px;
+    color:white;
+    font-weight:900;
+    background:linear-gradient(145deg,#26365f,#121a32);
+    border:1px solid rgba(255,255,255,.1);
+    transition:.2s;
+}
+
+.fight-btn:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+/* =========================
+   RESULTADO
+========================= */
+
+.result{
+    margin-top:22px;
+    padding:28px;
+    border-radius:22px;
+    text-align:center;
+    animation:cardIn .4s ease;
+}
+
+.result.win{
+    background:linear-gradient(145deg,rgba(53,229,140,.14),rgba(12,25,26,.95));
+    border:1px solid rgba(53,229,140,.35);
+}
+
+.result.loss{
+    background:linear-gradient(145deg,rgba(255,48,79,.14),rgba(30,12,22,.95));
+    border:1px solid rgba(255,48,79,.35);
+}
+
+.result-icon{
+    font-size:50px;
+}
+
+.result h2{
+    font-family:'Anton';
+    font-size:43px;
+    margin:8px 0;
+}
+
+.result p{
+    color:#c6cede;
+}
+
+/* =========================
+   MÉTODO PROHIBIDO
+========================= */
+
+#methodOverlay{
+    position:fixed;
+    inset:0;
+    z-index:600;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:rgba(2,3,9,.96);
+    backdrop-filter:blur(14px);
+}
+
+.method-box{
+    width:min(650px,100%);
+    text-align:center;
+    padding:35px;
+    border-radius:28px;
+    background:linear-gradient(145deg,#24132d,#100c1d);
+    border:1px solid rgba(166,108,255,.5);
+    box-shadow:0 0 70px rgba(166,108,255,.15);
+}
+
+.method-box h2{
+    font-family:'Anton';
+    font-size:43px;
+    margin:10px 0;
+    color:#d5b7ff;
+}
+
+.method-box p{
+    color:#c4bed1;
+    line-height:1.6;
+}
+
 .roulette{
-    width:210px;
-    height:210px;
+    width:190px;
+    height:190px;
     border-radius:50%;
     margin:25px auto;
-    border:8px solid #ffd166;
-    background:conic-gradient(
-        #e63946 0deg 72deg,
-        #17314f 72deg 144deg,
-        #e63946 144deg 216deg,
-        #17314f 216deg 288deg,
-        #e63946 288deg 360deg
-    );
-    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        conic-gradient(
+            var(--red) 0deg 144deg,
+            var(--green) 144deg 216deg,
+            var(--red) 216deg 360deg
+        );
+    box-shadow:0 0 50px rgba(166,108,255,.25);
+    animation:rouletteSpin 2s cubic-bezier(.1,.7,.2,1);
 }
 
-.roulette-pointer{
-    position:absolute;
-    top:-25px;
-    left:50%;
-    transform:translateX(-50%);
-    width:0;
-    height:0;
-    border-left:14px solid transparent;
-    border-right:14px solid transparent;
-    border-top:25px solid #ffd166;
+.roulette-inner{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#0c0a17;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:10px;
+    font-size:13px;
+    font-weight:900;
 }
 
-.spin{
-    animation:spin 3.2s cubic-bezier(.12,.78,.18,1) forwards;
+@keyframes rouletteSpin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(1440deg)}
 }
 
-@keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(1440deg);
-    }
+.method-btn{
+    border:none;
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    background:linear-gradient(90deg,var(--purple),#6645ff);
+    color:white;
+    font-weight:900;
 }
 
 /* =========================
    GAME OVER
 ========================= */
 
-#gameOverScreen{
+#gameOver{
     position:fixed;
     inset:0;
-    z-index:200;
-    background:
-    radial-gradient(circle,#300d13,#090d13 70%);
+    z-index:1000;
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:20px;
+    background:
+        radial-gradient(circle,rgba(255,48,79,.15),transparent 40%),
+        #04050b;
+}
+
+.gameover-box{
+    width:min(600px,100%);
     text-align:center;
-    padding:25px;
+    padding:45px 30px;
+    border-radius:28px;
+    background:linear-gradient(145deg,#25101a,#0e0b15);
+    border:2px solid rgba(255,48,79,.45);
+    box-shadow:0 0 90px rgba(255,48,79,.12);
+    animation:cardIn .5s ease;
 }
 
-.game-over-box{
-    max-width:650px;
-    animation:gameOverIn .7s ease;
+.gameover-box .icon{
+    font-size:60px;
 }
 
-@keyframes gameOverIn{
-    from{
-        opacity:0;
-        transform:scale(.8);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
+.gameover-box h1{
+    font-family:'Anton';
+    font-size:clamp(45px,9vw,72px);
+    color:var(--red2);
+    margin:10px 0;
 }
 
-.game-over-box h1{
-    color:#e63946;
-    font-size:45px;
-}
-
-.game-over-box p{
-    color:#d6dce4;
-    font-size:18px;
+.gameover-box p{
+    color:#bdb8c5;
     line-height:1.7;
 }
 
-.restart{
-    background:#ffd166;
-    color:#111;
-    margin-top:20px;
+.restart-btn{
+    margin-top:25px;
+    border:none;
+    padding:17px 28px;
+    border-radius:14px;
+    background:linear-gradient(90deg,var(--red),#ff704e);
+    color:white;
+    font-weight:900;
+    min-width:220px;
 }
 
-@media(max-width:750px){
+/* =========================
+   RESPONSIVE
+========================= */
 
-    .islands{
+@media(max-width:850px){
+    .island-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .teams{
+    .stat-row{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .team-grid,
+    .choices,
+    .fight-choices,
+    .stats-grid{
         grid-template-columns:1fr;
     }
 
-    .stat-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    header{
+    .hero-top{
         flex-direction:column;
-        align-items:flex-start;
+    }
+}
+
+@media(max-width:560px){
+    .creation-box{
+        padding:25px 17px;
+        border-radius:22px;
     }
 
-    .player-mini{
-        text-align:left;
+    .main{
+        width:94%;
+        margin-top:18px;
     }
 
-    .competition-title{
-        font-size:28px;
+    .hero,
+    .story-card,
+    .panel,
+    .fight-card{
+        padding:21px;
+        border-radius:19px;
     }
 
-    .opponent{
-        font-size:23px;
+    .stat-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .topbar-inner{
+        min-height:65px;
+    }
+
+    .nav{
+        overflow-x:auto;
+        padding-bottom:8px;
+    }
+
+    .nav button{
+        flex-shrink:0;
+    }
+
+    .senior-box{
+        padding:35px 22px;
     }
 }
 </style>
@@ -673,251 +1201,449 @@ main{
 
 <body>
 
-<!-- =====================================================
+<!-- =========================
      CREACIÓN
-===================================================== -->
+========================= -->
 
 <section id="creationScreen">
 
-<div class="creation-box">
+    <div class="creation-box">
 
-<div class="logo">
-CAMINO AL TERRERO
-</div>
+        <div class="logo">
+            <h1>Camino al Terrero</h1>
+            <p>Construye tu leyenda</p>
+        </div>
 
-<div class="subtitle">
-Construye tu carrera desde Cadete hasta Puntal A
-</div>
+        <div class="section-title">Tu nombre</div>
 
-<label>Nombre del luchador</label>
+        <input
+            id="nameInput"
+            class="name-input"
+            type="text"
+            maxlength="24"
+            placeholder="Escribe tu nombre..."
+            oninput="checkCreation()"
+        >
 
-<input
-    id="playerName"
-    type="text"
-    placeholder="Escribe tu nombre"
->
+        <div class="section-title">Elige tu isla</div>
 
-<h3>Elige tu isla</h3>
+        <div class="island-grid">
+            <button class="island-btn" onclick="selectIsland('Fuerteventura',this)">
+                🏝️ Fuerteventura
+            </button>
 
-<div class="islands">
+            <button class="island-btn" onclick="selectIsland('Gran Canaria',this)">
+                🌴 Gran Canaria
+            </button>
 
-<button class="island"
-onclick="selectIsland('Fuerteventura',this)">
-Fuerteventura
-</button>
+            <button class="island-btn" onclick="selectIsland('Tenerife',this)">
+                🌋 Tenerife
+            </button>
 
-<button class="island"
-onclick="selectIsland('Gran Canaria',this)">
-Gran Canaria
-</button>
+            <button class="island-btn" onclick="selectIsland('La Palma',this)">
+                🌿 La Palma
+            </button>
+        </div>
 
-<button class="island"
-onclick="selectIsland('Tenerife',this)">
-Tenerife
-</button>
+        <div id="teamSection" class="hidden">
 
-<button class="island"
-onclick="selectIsland('La Palma',this)">
-La Palma
-</button>
+            <div class="section-title">Elige tu club</div>
 
-</div>
+            <div id="teamGrid" class="team-grid"></div>
 
-<h3>Elige tu club</h3>
+        </div>
 
-<div id="teams" class="teams">
+        <button
+            id="startBtn"
+            class="start-btn"
+            onclick="startCareer()"
+            disabled
+        >
+            COMENZAR MI CARRERA
+        </button>
 
-<p style="color:#8fa4bb;">
-Selecciona una isla para ver los clubes.
-</p>
-
-</div>
-
-<button
-id="startButton"
-disabled
-onclick="startCareer()"
->
-COMENZAR CARRERA
-</button>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      JUEGO
-===================================================== -->
+========================= -->
 
 <section id="game" class="hidden">
 
-<header>
+    <header class="topbar">
 
-<div class="header-title">
-CAMINO AL TERRERO
+        <div class="topbar-inner">
+
+            <div class="game-logo">
+                CAMINO AL TERRERO
+            </div>
+
+            <div class="player-mini">
+
+                <div class="player-avatar" id="miniAvatar">
+                    ?
+                </div>
+
+                <div class="player-mini-text">
+                    <strong id="miniName">Luchador</strong>
+                    <span id="miniCategory">Cadete</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <button class="active" onclick="showSection('career',this)">
+                🥊 Carrera
+            </button>
+
+            <button onclick="showSection('calendar',this)">
+                📅 Calendario
+            </button>
+
+            <button onclick="showSection('news',this)">
+                📰 Noticias
+            </button>
+
+            <button onclick="showSection('stats',this)">
+                📊 Estadísticas
+            </button>
+
+            <button onclick="showSection('history',this)">
+                🏆 Historial
+            </button>
+
+            <button onclick="showSection('offers',this)">
+                💰 Ofertas
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <main class="main">
+
+        <!-- CARRERA -->
+
+        <section id="careerSection">
+
+            <div class="hero">
+
+                <div class="hero-top">
+
+                    <div>
+                        <h2 id="heroName">Joel</h2>
+                        <p id="heroTeam">Club de lucha</p>
+                    </div>
+
+                    <div class="category-badge" id="heroCategory">
+                        CADETE
+                    </div>
+
+                </div>
+
+                <div class="stat-row">
+
+                    <div class="quick-stat">
+                        <span>Fuerza</span>
+                        <strong id="quickStrength">0</strong>
+                        <div class="progress">
+                            <div id="quickStrengthBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="quick-stat">
+                        <span>Técnica</span>
+                        <strong id="quickTechnique">0</strong>
+                        <div class="progress">
+                            <div id="quickTechniqueBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="quick-stat">
+                        <span>Resistencia</span>
+                        <strong id="quickStamina">0</strong>
+                        <div class="progress">
+                            <div id="quickStaminaBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="quick-stat">
+                        <span>Lectura</span>
+                        <strong id="quickReading">0</strong>
+                        <div class="progress">
+                            <div id="quickReadingBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="quick-stat">
+                        <span>Confianza</span>
+                        <strong id="quickConfidence">0</strong>
+                        <div class="progress">
+                            <div id="quickConfidenceBar"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="storyContainer"></div>
+
+            <div id="fightContainer"></div>
+
+            <div id="resultContainer"></div>
+
+        </section>
+
+
+        <!-- CALENDARIO -->
+
+        <section id="calendarSection" class="hidden">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>📅 PRÓXIMAS LUCHAS</h3>
+                    <span>Calendario</span>
+                </div>
+
+                <div id="calendarList" class="calendar-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOTICIAS -->
+
+        <section id="newsSection" class="hidden">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>📰 NOTICIAS DE ÚLTIMA HORA</h3>
+                    <span>Terreros</span>
+                </div>
+
+                <div id="newsList" class="news-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <section id="statsSection" class="hidden">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>📊 MIS ESTADÍSTICAS</h3>
+                    <span id="statsCategory">Cadete</span>
+                </div>
+
+                <div class="stats-grid" id="statsGrid"></div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>📈 CARRERA</h3>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="big-stat">
+                        <div class="big-stat-head">
+                            <span>Victorias</span>
+                            <strong id="statWins">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="big-stat">
+                        <div class="big-stat-head">
+                            <span>Derrotas</span>
+                            <strong id="statLosses">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="big-stat">
+                        <div class="big-stat-head">
+                            <span>Reputación</span>
+                            <strong id="statRep">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="big-stat">
+                        <div class="big-stat-head">
+                            <span>Títulos</span>
+                            <strong id="statTitles">0</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HISTORIAL -->
+
+        <section id="historySection" class="hidden">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>🏆 HISTORIAL</h3>
+                    <span>Tu camino</span>
+                </div>
+
+                <div id="historyList" class="history-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- OFERTAS -->
+
+        <section id="offersSection" class="hidden">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <h3>💰 OFERTAS</h3>
+                    <span>Mercado</span>
+                </div>
+
+                <div id="offerList" class="offer-list"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     AVISO SENIOR
+========================= -->
+
+<div id="seniorOverlay" class="hidden">
+
+    <div class="senior-box">
+
+        <div class="senior-icon">
+            🏆
+        </div>
+
+        <div class="small">
+            AVISO IMPORTANTE
+        </div>
+
+        <h2>CONVOCATORIA</h2>
+
+        <p>
+            Has sido convocado para luchar en la
+            <strong>categoría Senior</strong>.
+            <br><br>
+            Tu club considera que ha llegado el momento
+            de dar el siguiente paso.
+        </p>
+
+        <button
+            class="accept-btn"
+            onclick="acceptSeniorCallup()"
+        >
+            ACEPTAR CONVOCATORIA
+        </button>
+
+    </div>
+
 </div>
 
-<div class="player-mini">
 
-<strong id="headerName"></strong>
+<!-- =========================
+     MÉTODO PROHIBIDO
+========================= -->
 
-<br>
+<div id="methodOverlay" class="hidden">
 
-<span id="headerInfo"></span>
+    <div class="method-box">
 
-</div>
+        <div style="font-size:45px;">⚠️</div>
 
-</header>
+        <div style="
+            color:#b98cff;
+            font-size:11px;
+            font-weight:900;
+            letter-spacing:3px;
+        ">
+            EVENTO ESPECIAL
+        </div>
 
+        <h2>MÉTODO PROHIBIDO</h2>
 
-<nav>
+        <p>
+            Has tomado una decisión que puede poner en riesgo
+            tu carrera deportiva.
+        </p>
 
-<button
-class="nav-btn active"
-onclick="showPage('inicio',this)"
->
-Historia
-</button>
+        <div id="roulette" class="roulette">
 
-<button
-class="nav-btn"
-onclick="showPage('calendario',this)"
->
-Calendario
-</button>
+            <div class="roulette-inner" id="rouletteText">
+                GIRANDO...
+            </div>
 
-<button
-class="nav-btn"
-onclick="showPage('estadisticas',this)"
->
-Estadísticas
-</button>
+        </div>
 
-<button
-class="nav-btn"
-onclick="showPage('noticias',this)"
->
-Noticias
-</button>
+        <div id="methodResult"></div>
 
-<button
-class="nav-btn"
-onclick="showPage('historial',this)"
->
-Historial
-</button>
-
-</nav>
-
-
-<main>
-
-<section id="inicio" class="page active">
-
-<div id="storyContainer"></div>
-
-</section>
-
-
-<section id="calendario" class="page">
-
-<h1>Calendario</h1>
-
-<p style="color:#9fb2c8;">
-Aquí puedes consultar tus próximas luchas.
-</p>
-
-<div
-id="calendarContainer"
-class="cards"
-></div>
-
-</section>
-
-
-<section id="estadisticas" class="page">
-
-<h1>Estadísticas</h1>
-
-<div
-id="statsContainer"
-class="stat-grid"
-></div>
-
-</section>
-
-
-<section id="noticias" class="page">
-
-<h1>Noticias de última hora</h1>
-
-<div
-id="newsContainer"
-class="news"
-></div>
-
-</section>
-
-
-<section id="historial" class="page">
-
-<h1>Historial de carrera</h1>
-
-<div
-id="historyContainer"
-class="news"
-></div>
-
-</section>
-
-</main>
-
-</section>
-
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div id="modal" class="modal hidden">
-
-<div id="modalBox" class="modal-box"></div>
+    </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      GAME OVER
-===================================================== -->
+========================= -->
 
-<div id="gameOverScreen" class="hidden">
+<div id="gameOver" class="hidden">
 
-<div class="game-over-box">
+    <div class="gameover-box">
 
-<h1>
-CARRERA TERMINADA
-</h1>
+        <div class="icon">🚫</div>
 
-<p>
-Tu carrera ha terminado.
-Has sido descubierto utilizando un método prohibido
-en el deporte.
-</p>
+        <h1>CARRERA TERMINADA</h1>
 
-<p>
-La competición y el club han dado por terminada
-tu trayectoria.
-</p>
+        <p>
+            Has sido descubierto utilizando un método
+            prohibido en el deporte.
+            <br><br>
+            Tu carrera ha llegado a su fin.
+        </p>
 
-<button
-class="restart"
-onclick="restartGame()"
->
-COMENZAR DE NUEVO
-</button>
+        <button
+            class="restart-btn"
+            onclick="restartCareer()"
+        >
+            COMENZAR DE NUEVO
+        </button>
 
-</div>
+    </div>
 
 </div>
 
@@ -928,95 +1654,79 @@ COMENZAR DE NUEVO
    EQUIPOS
 ===================================================== */
 
-const teams={
+const teams = {
 
-"Fuerteventura":[
+    "Fuerteventura":[
+        {
+            name:"Club de lucha Unión Antigua",
+            colors:["#ffffff","#35a853"],
+            league:"Liga Fuerteventura-Tenerife"
+        },
+        {
+            name:"Rosario club de lucha",
+            colors:["#2878ff","#e52b42"],
+            league:"Liga Fuerteventura-Tenerife"
+        },
+        {
+            name:"Club de lucha Unión Tetir",
+            colors:["#2878ff","#ffffff"],
+            league:"Liga Fuerteventura-Tenerife"
+        }
+    ],
 
-{
-name:"Club de lucha Unión Antigua",
-colors:"⚪️🟢",
-league:"Liga Fuerteventura-Tenerife"
-},
+    "Gran Canaria":[
+        {
+            name:"Club de lucha Adargoma",
+            colors:["#ffffff","#e52b42"],
+            league:"Liga de Gran Canaria"
+        },
+        {
+            name:"Club de lucha Castillo del Romeral",
+            colors:["#ffd21c","#2878ff"],
+            league:"Liga de Gran Canaria"
+        },
+        {
+            name:"Club de lucha Castro Morales",
+            colors:["#111111","#ffffff"],
+            league:"Liga de Gran Canaria"
+        }
+    ],
 
-{
-name:"Rosario club de lucha",
-colors:"🔵🔴",
-league:"Liga Fuerteventura-Tenerife"
-},
+    "Tenerife":[
+        {
+            name:"Club de lucha Chimbesque",
+            colors:["#ffd21c","#2878ff"],
+            league:"Liga Fuerteventura-Tenerife"
+        },
+        {
+            name:"Club de lucha Campitos",
+            colors:["#35a853","#ffffff"],
+            league:"Liga Fuerteventura-Tenerife"
+        },
+        {
+            name:"Club de lucha Rosario valle guerra",
+            colors:["#ffffff","#e52b42"],
+            league:"Liga Fuerteventura-Tenerife"
+        }
+    ],
 
-{
-name:"Club de lucha Unión Tetir",
-colors:"🔵⚪️",
-league:"Liga Fuerteventura-Tenerife"
-}
-
-],
-
-"Gran Canaria":[
-
-{
-name:"Club de lucha Adargoma",
-colors:"⚪️🔴",
-league:"Liga de Gran Canaria"
-},
-
-{
-name:"Club de lucha Castillo del Romeral",
-colors:"🟡🔵",
-league:"Liga de Gran Canaria"
-},
-
-{
-name:"Club de lucha Castro Morales",
-colors:"⚫️⚪️",
-league:"Liga de Gran Canaria"
-}
-
-],
-
-"Tenerife":[
-
-{
-name:"Club de lucha Chimbesque",
-colors:"🟡🔵",
-league:"Liga Fuerteventura-Tenerife"
-},
-
-{
-name:"Club de lucha Campitos",
-colors:"🟢⚪️",
-league:"Liga Fuerteventura-Tenerife"
-},
-
-{
-name:"Club de lucha Rosario valle guerra",
-colors:"⚪️🔴",
-league:"Liga Fuerteventura-Tenerife"
-}
-
-],
-
-"La Palma":[
-
-{
-name:"Club de lucha Aridane",
-colors:"🟠🔵",
-league:"Liga de La Palma"
-},
-
-{
-name:"Club de lucha Candelaria",
-colors:"🔵⚪️",
-league:"Liga de La Palma"
-},
-
-{
-name:"Club de lucha Bediesta",
-colors:"⚫️🟢",
-league:"Liga de La Palma"
-}
-
-]
+    "La Palma":[
+        {
+            name:"Club de lucha Aridane",
+            colors:["#ff7a21","#2878ff"],
+            league:"Liga de La Palma"
+        },
+        {
+            name:"Club de lucha Candelaria",
+            colors:["#2878ff","#ffffff"],
+            league:"Liga de La Palma"
+        },
+        {
+            name:"Club de lucha Bediesta",
+            colors:["#111111","#35a853"],
+            league:"Liga de La Palma"
+        }
+    ]
 
 };
 
@@ -1025,25 +1735,61 @@ league:"Liga de La Palma"
    CATEGORÍAS
 ===================================================== */
 
-const categories=[
+const categories = [
 
-{name:"Cadete",season:1,requirement:0},
+    {
+        name:"Cadete",
+        season:1,
+        requirement:0
+    },
 
-{name:"Juvenil",season:3,requirement:0},
+    {
+        name:"Juvenil",
+        season:3,
+        requirement:0
+    },
 
-{name:"Senior",season:5,requirement:0},
+    {
+        name:"Senior",
+        season:5,
+        requirement:0
+    },
 
-{name:"Destacado C",season:6,requirement:300},
+    {
+        name:"Destacado C",
+        season:6,
+        requirement:300
+    },
 
-{name:"Destacado B",season:8,requirement:500},
+    {
+        name:"Destacado B",
+        season:8,
+        requirement:500
+    },
 
-{name:"Destacado A",season:10,requirement:750},
+    {
+        name:"Destacado A",
+        season:10,
+        requirement:750
+    },
 
-{name:"Puntal C",season:12,requirement:1000},
+    {
+        name:"Puntal C",
+        season:12,
+        requirement:1000
+    },
 
-{name:"Puntal B",season:14,requirement:1400},
+    {
+        name:"Puntal B",
+        season:14,
+        requirement:1400
+    },
 
-{name:"Puntal A",season:16,requirement:1900}
+    {
+        name:"Puntal A",
+        season:16,
+        requirement:1900
+    }
 
 ];
 
@@ -1052,417 +1798,348 @@ const categories=[
    VARIABLES
 ===================================================== */
 
-let selectedIsland=null;
-let selectedTeam=null;
+let selectedIsland = null;
+let selectedTeam = null;
 
-let player=null;
+let player = null;
 
-let decisions=0;
+let currentRival = null;
 
-let methodChanceUsed=false;
+let methodChanceUsed = false;
+
+let gameLocked = false;
 
 
 /* =====================================================
-   ISLA
+   UTILIDADES
+===================================================== */
+
+function random(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function clamp(value,min,max){
+    return Math.max(min,Math.min(max,value));
+}
+
+function choose(array){
+    return array[Math.floor(Math.random()*array.length)];
+}
+
+
+/* =====================================================
+   CREACIÓN
 ===================================================== */
 
 function selectIsland(island,button){
 
-selectedIsland=island;
+    selectedIsland = island;
+    selectedTeam = null;
 
-selectedTeam=null;
+    document.querySelectorAll(".island-btn")
+        .forEach(b=>b.classList.remove("selected"));
 
-document
-.querySelectorAll(".island")
-.forEach(b=>b.classList.remove("selected"));
+    button.classList.add("selected");
 
-button.classList.add("selected");
+    const grid = document.getElementById("teamGrid");
 
-renderTeams();
+    grid.innerHTML="";
 
-updateStartButton();
+    teams[island].forEach((team,index)=>{
 
+        const card=document.createElement("div");
+
+        card.className="team-card";
+
+        card.onclick=()=>selectTeam(team,card);
+
+        card.innerHTML=`
+
+            <div class="team-name">
+                ${team.name}
+            </div>
+
+            <div class="team-league">
+                ${team.league}
+            </div>
+
+            <div class="team-colors">
+
+                <div
+                    class="color-dot"
+                    style="background:${team.colors[0]}"
+                ></div>
+
+                <div
+                    class="color-dot"
+                    style="background:${team.colors[1]}"
+                ></div>
+
+            </div>
+
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+    document.getElementById("teamSection")
+        .classList.remove("hidden");
+
+    checkCreation();
+}
+
+
+function selectTeam(team,card){
+
+    selectedTeam=team;
+
+    document.querySelectorAll(".team-card")
+        .forEach(c=>c.classList.remove("selected"));
+
+    card.classList.add("selected");
+
+    checkCreation();
+}
+
+
+function checkCreation(){
+
+    const name=
+        document.getElementById("nameInput")
+        .value.trim();
+
+    document.getElementById("startBtn").disabled=
+        !(name && selectedIsland && selectedTeam);
 }
 
 
 /* =====================================================
-   EQUIPOS
-===================================================== */
-
-function renderTeams(){
-
-const container=document.getElementById("teams");
-
-container.innerHTML="";
-
-if(!selectedIsland)return;
-
-teams[selectedIsland].forEach(team=>{
-
-const button=document.createElement("button");
-
-button.className="team";
-
-button.innerHTML=`
-
-<div class="team-name">
-${team.colors} ${team.name}
-</div>
-
-<div class="league">
-${team.league}
-</div>
-
-`;
-
-button.onclick=()=>{
-
-selectedTeam=team;
-
-document
-.querySelectorAll(".team")
-.forEach(t=>t.classList.remove("selected"));
-
-button.classList.add("selected");
-
-updateStartButton();
-
-};
-
-container.appendChild(button);
-
-});
-
-}
-
-
-/* =====================================================
-   BOTÓN COMENZAR
-===================================================== */
-
-document
-.getElementById("playerName")
-.addEventListener("input",updateStartButton);
-
-
-function updateStartButton(){
-
-const name=
-document.getElementById("playerName")
-.value.trim();
-
-document.getElementById("startButton")
-.disabled=
-!(name&&selectedIsland&&selectedTeam);
-
-}
-
-
-/* =====================================================
-   ESTADÍSTICAS INICIALES
-===================================================== */
-
-function randomStat(){
-
-return Math.floor(Math.random()*8)+4;
-
-}
-
-
-function generateStartingStats(){
-
-player.strength=randomStat();
-player.technique=randomStat();
-player.stamina=randomStat();
-player.reading=randomStat();
-player.mentality=randomStat();
-player.speed=randomStat();
-
-
-/*
-   LOS LEDESMA:
-   extremadamente raro.
-*/
-
-if(Math.random()<0.0003){
-
-player.ledesma=true;
-
-player.strength=Math.floor(Math.random()*4)+13;
-player.technique=Math.floor(Math.random()*4)+13;
-player.stamina=Math.floor(Math.random()*4)+13;
-player.reading=Math.floor(Math.random()*4)+13;
-player.mentality=Math.floor(Math.random()*4)+13;
-player.speed=Math.floor(Math.random()*4)+13;
-
-}
-
-}
-
-
-/* =====================================================
-   COMENZAR CARRERA
+   INICIAR CARRERA
 ===================================================== */
 
 function startCareer(){
 
-const name=
-document.getElementById("playerName")
-.value.trim();
+    const name=
+        document.getElementById("nameInput")
+        .value.trim();
 
-if(!name||!selectedIsland||!selectedTeam)return;
+    if(!name || !selectedIsland || !selectedTeam){
+        return;
+    }
 
+    const secret=
+        Math.random()<0.0003;
 
-player={
+    player={
 
-name:name,
+        name:name,
 
-island:selectedIsland,
+        island:selectedIsland,
 
-club:selectedTeam.name,
+        team:selectedTeam.name,
 
-colors:selectedTeam.colors,
+        league:selectedTeam.league,
 
-league:selectedTeam.league,
+        category:"Cadete",
 
-season:1,
+        season:1,
 
-week:1,
+        decisions:0,
 
-category:"Cadete",
+        fights:0,
 
-strength:0,
-technique:0,
-stamina:0,
-reading:0,
-mentality:0,
-speed:0,
+        wins:0,
 
-fatigue:0,
+        losses:0,
 
-reputation:0,
+        reputation:0,
 
-wins:0,
-losses:0,
+        titles:0,
 
-money:0,
-titles:0,
+        money:0,
 
-fights:0,
+        fatigue:0,
 
-currentRival:null,
+        strength:secret ? random(13,16) : random(4,11),
 
-calendar:[],
-news:[],
-history:[],
+        technique:secret ? random(13,16) : random(4,11),
 
-decisions:0,
+        stamina:secret ? random(13,16) : random(4,11),
 
-seniorCallupSeen:false,
-seniorCallupAccepted:false,
+        reading:secret ? random(13,16) : random(4,11),
 
-methodEventAvailable:false,
+        confidence:secret ? random(13,16) : random(4,11),
 
-ledesma:false
+        seniorCallupSeen:false,
 
-};
+        seniorCallupAccepted:false,
 
+        secretLosLedesma:secret,
 
-decisions=0;
+        history:[],
 
-methodChanceUsed=false;
+        news:[],
 
-generateStartingStats();
+        calendar:[],
 
+        offers:[]
 
-document
-.getElementById("creationScreen")
-.classList.add("hidden");
+    };
 
-document
-.getElementById("game")
-.classList.remove("hidden");
+    methodChanceUsed=false;
 
+    gameLocked=false;
 
-addHistory(
-`Comienza la carrera de ${player.name} en ${player.club}.`
-);
+    document.getElementById("creationScreen")
+        .classList.add("hidden");
 
-addNews(
-`${player.name} comienza su trayectoria en categoría Cadete.`
-);
+    document.getElementById("game")
+        .classList.remove("hidden");
 
-addWorldNews();
+    addNews(
+        "🥊",
+        "Nueva promesa",
+        `${player.name} comienza su camino en ${player.team}.`
+    );
 
-generateCalendar();
+    if(secret){
 
-updateAll();
+        addNews(
+            "👀",
+            "Rumores en el terrero",
+            "Algunos veteranos creen haber visto algo especial en el nuevo luchador."
+        );
 
-firstStory();
+    }
 
+    generateCalendar();
+    generateOffers();
+
+    updateUI();
+
+    firstStory();
+
+    saveGame();
 }
 
 
 /* =====================================================
-   HISTORIA INICIAL
+   PRIMERA HISTORIA
 ===================================================== */
 
 function firstStory(){
 
-showStory({
+    showStory(
 
-chapter:"Capítulo 1 · Los primeros pasos",
+        "EL COMIENZO",
 
-title:"El primer día",
+        `Comienza tu carrera en categoría Cadete.
+        Acabas de entrar en ${player.team}.
+        Nadie sabe todavía hasta dónde puedes llegar.`,
 
-text:
-`Llegas al terrero.
+        [
 
-Hoy comienza tu carrera como luchador.
+            {
+                title:"💪 Entrenar fuerza",
+                desc:"Trabajas tu potencia y capacidad de agarre.",
+                action:()=>makeDecision("Fuerza",{
+                    strength:2,
+                    stamina:1
+                })
+            },
 
-Eres Cadete y todavía tienes todo por demostrar.
+            {
+                title:"🎯 Trabajar técnica",
+                desc:"Te concentras en aprender nuevas mañas.",
+                action:()=>makeDecision("Técnica",{
+                    technique:2,
+                    reading:1
+                })
+            },
 
-El entrenador te mira y te dice:
+            {
+                title:"🫁 Mejorar resistencia",
+                desc:"Aumentas tu capacidad para aguantar luchas largas.",
+                action:()=>makeDecision("Resistencia",{
+                    stamina:2,
+                    confidence:1
+                })
+            },
 
-«Vamos a ver hasta dónde puedes llegar».`,
+            {
+                title:"🧠 Estudiar rivales",
+                desc:"Intentas entender cómo luchan los demás.",
+                action:()=>makeDecision("Lectura",{
+                    reading:2,
+                    technique:1
+                })
+            }
 
-choices:[
+        ]
 
-{
-text:"Trabajar técnica",
-action:()=>{
-
-changeStat("technique",2);
-changeStat("fatigue",3);
-
-nextDecision(
-"Has comenzado trabajando tus mañas."
-);
-
-}
-},
-
-{
-text:"Trabajar potencia",
-action:()=>{
-
-changeStat("strength",2);
-changeStat("fatigue",4);
-
-nextDecision(
-"Has centrado el entrenamiento en la potencia."
-);
-
-}
-},
-
-{
-text:"Trabajar resistencia",
-action:()=>{
-
-changeStat("stamina",2);
-changeStat("fatigue",2);
-
-nextDecision(
-"Has dedicado el entrenamiento a aguantar más."
-);
-
-}
-}
-
-]
-
-});
+    );
 
 }
 
 
 /* =====================================================
-   MOSTRAR HISTORIA
+   STORY
 ===================================================== */
 
-function showStory(data){
+function showStory(label,title,text,choices){
 
-const container=
-document.getElementById("storyContainer");
+    const container=
+        document.getElementById("storyContainer");
 
-container.innerHTML="";
+    container.innerHTML=`
 
+        <div class="story-card">
 
-const box=
-document.createElement("div");
+            <div class="story-label">
+                ${label}
+            </div>
 
-box.className="story-box story-enter";
+            <div class="story-title">
+                ${title}
+            </div>
 
+            <div class="story-text">
+                ${text}
+            </div>
 
-box.innerHTML=`
+            <div class="choices" id="choices"></div>
 
-<div class="chapter">
-${data.chapter}
-</div>
+        </div>
 
-<div class="story-title">
-${data.title}
-</div>
+    `;
 
-<div class="story-text">
-${data.text}
-</div>
+    const choicesBox=
+        document.getElementById("choices");
 
-<div class="choices" id="choices"></div>
+    choices.forEach(choice=>{
 
-`;
+        const button=document.createElement("button");
 
+        button.className="choice";
 
-container.appendChild(box);
+        button.innerHTML=`
 
+            <div class="choice-title">
+                ${choice.title}
+            </div>
 
-const choices=
-document.getElementById("choices");
+            <div class="choice-desc">
+                ${choice.desc}
+            </div>
 
+        `;
 
-data.choices.forEach(choice=>{
+        button.onclick=()=>choice.action();
 
-const button=
-document.createElement("button");
+        choicesBox.appendChild(button);
 
-button.className="choice";
-
-button.textContent=choice.text;
-
-
-button.onclick=()=>{
-
-/*
-   Animación de selección
-*/
-
-button.classList.add("selected");
-
-choices
-.querySelectorAll("button")
-.forEach(b=>b.disabled=true);
-
-
-/*
-   Pequeño retraso para que
-   se vea la animación.
-*/
-
-setTimeout(()=>{
-
-choice.action();
-
-},450);
-
-};
-
-
-choices.appendChild(button);
-
-});
-
-showPage("inicio");
+    });
 
 }
 
@@ -1471,80 +2148,136 @@ showPage("inicio");
    DECISIONES
 ===================================================== */
 
-function nextDecision(text){
+function makeDecision(type,changes){
 
-decisions++;
+    if(gameLocked)return;
 
-player.decisions++;
+    Object.keys(changes).forEach(stat=>{
 
-addHistory(text);
+        player[stat]=clamp(
+            player[stat]+changes[stat],
+            0,
+            100
+        );
 
-updateAll();
+    });
 
+    player.decisions++;
 
-/*
-=========================================================
-   PRIMER PUNTO IMPORTANTE:
+    player.fatigue=
+        clamp(player.fatigue+random(1,4),0,100);
 
-   DESPUÉS DE 3 DECISIONES
-   APARECE LA CONVOCATORIA SENIOR.
+    const texts={
 
-   ES GARANTIZADA.
-=========================================================
-*/
+        "Fuerza":[
+            "La sesión ha sido dura, pero notas que estás empezando a ganar potencia.",
+            "Has trabajado hasta que los brazos casi no respondían.",
+            "Tu potencia empieza a llamar la atención en los entrenamientos."
+        ],
 
-if(
-player.category==="Cadete" &&
-!player.seniorCallupSeen &&
-player.decisions>=3
-){
+        "Técnica":[
+            "Repites la misma maña una y otra vez hasta que empieza a salir de forma natural.",
+            "El entrenador corrige un pequeño detalle y notas inmediatamente la diferencia.",
+            "Tu técnica empieza a ganar precisión."
+        ],
 
-seniorCallupEvent();
+        "Resistencia":[
+            "Terminas completamente cansado, pero aguantas más que antes.",
+            "El entrenamiento ha sido largo y tu cuerpo empieza a adaptarse.",
+            "Cada vez te cuesta menos mantener el ritmo."
+        ],
 
-return;
+        "Lectura":[
+            "Pasas tiempo observando a otros luchadores.",
+            "Empiezas a reconocer patrones en los movimientos de tus rivales.",
+            "Te das cuenta de que muchas luchas se ganan antes de que empiece el forcejeo."
+        ]
+
+    };
+
+    addHistory(
+        `Entrenamiento: ${type}.`
+    );
+
+    showStory(
+
+        "DECISIÓN TOMADA",
+
+        choose(texts[type]),
+
+        `Tus decisiones empiezan a definir el tipo de luchador que serás.
+        La temporada sigue avanzando.`,
+
+        [
+
+            {
+                title:"➡️ Continuar",
+                desc:"Seguir con tu carrera.",
+                action:()=>nextDecision()
+            }
+
+        ]
+
+    );
+
+    updateUI();
+    saveGame();
 
 }
 
 
-/*
-=========================================================
-   DESPUÉS DE LA CONVOCATORIA:
+/* =====================================================
+   SIGUIENTE DECISIÓN
+===================================================== */
 
-   CADA 2 DECISIONES HAY COMPETICIÓN.
-=========================================================
-*/
+function nextDecision(){
 
-if(
-player.seniorCallupSeen &&
-(player.decisions-3)%2===0
-){
+    if(gameLocked)return;
 
-prepareFight();
+    /* Convocatoria Senior exactamente después de 3 decisiones */
 
-return;
+    if(
+        player.category==="Cadete" &&
+        !player.seniorCallupSeen &&
+        player.decisions>=3
+    ){
 
-}
+        seniorCallupEvent();
 
-
-/*
-   Evento especial de riesgo.
-*/
-
-if(
-!methodChanceUsed &&
-Math.random()<0.30
-){
-
-methodChanceUsed=true;
-
-showMethodEvent();
-
-return;
-
-}
+        return;
+    }
 
 
-randomEvent();
+    /* Competición cada dos decisiones después de la convocatoria */
+
+    if(
+        player.seniorCallupAccepted &&
+        player.decisions>3 &&
+        (player.decisions-3)%2===0
+    ){
+
+        prepareFight();
+
+        return;
+    }
+
+
+    /* Evento método prohibido */
+
+    if(
+        !methodChanceUsed &&
+        Math.random()<0.30
+    ){
+
+        methodChanceUsed=true;
+
+        showMethodEvent();
+
+        return;
+    }
+
+
+    randomEvent();
 
 }
 
@@ -1555,655 +2288,66 @@ randomEvent();
 
 function seniorCallupEvent(){
 
-player.seniorCallupSeen=true;
+    player.seniorCallupSeen=true;
 
-showModal(`
+    gameLocked=true;
 
-<h2>¡HAS SIDO CONVOCADO!</h2>
+    document.getElementById("seniorOverlay")
+        .classList.remove("hidden");
 
-<p style="font-size:18px;">
-El entrenador te llama después del entrenamiento.
-</p>
+    addNews(
+        "🏆",
+        "Convocatoria importante",
+        `${player.name} ha sido convocado para luchar en categoría Senior.`
+    );
 
-<p style="
-font-size:21px;
-color:#ffd166;
-font-weight:bold;
-">
-Has sido convocado para luchar en la categoría Senior.
-</p>
+    addHistory(
+        "Has sido convocado para luchar en la categoría Senior."
+    );
 
-<p>
-Es una oportunidad especial para demostrar
-lo que puedes hacer contra luchadores mayores.
-</p>
-
-<div class="modal-buttons">
-
-<button
-class="accept"
-onclick="acceptSeniorCallup()"
->
-ACEPTAR
-</button>
-
-<button
-class="reject"
-onclick="rejectSeniorCallup()"
->
-RECHAZAR
-</button>
-
-</div>
-
-`);
-
+    saveGame();
 }
 
-
-/* =====================================================
-   ACEPTAR SENIOR
-===================================================== */
 
 function acceptSeniorCallup(){
 
-closeModal();
+    document.getElementById("seniorOverlay")
+        .classList.add("hidden");
 
-player.seniorCallupAccepted=true;
+    player.seniorCallupAccepted=true;
 
-changeStat("mentality",3);
+    player.reputation+=20;
 
-player.reputation+=20;
+    player.confidence=
+        clamp(player.confidence+3,0,100);
 
-addNews(
-`${player.name} ha aceptado una convocatoria especial con Senior.`
-);
+    gameLocked=false;
 
-addHistory(
-"Aceptaste la convocatoria para luchar con Senior."
-);
+    updateUI();
 
+    showStory(
 
-showStory({
+        "NUEVA ETAPA",
 
-chapter:"Una oportunidad inesperada",
+        "EL SALTO A SENIOR",
 
-title:"La convocatoria",
+        `Has aceptado la convocatoria.
+        A partir de ahora tendrás que demostrar que puedes competir
+        contra luchadores con mucha más experiencia.`,
 
-text:
-`Has aceptado.
+        [
 
-El entrenador te explica que esta convocatoria
-es una oportunidad especial.
+            {
+                title:"🔥 Continuar",
+                desc:"Empieza esta nueva etapa.",
+                action:()=>nextDecision()
+            }
 
-Tu categoría oficial sigue siendo Cadete
-para las competiciones normales.
+        ]
 
-Pero el club quiere comprobar cómo respondes
-ante un reto mayor.`,
+    );
 
-choices:[
-
-{
-text:"Entrenar todavía más",
-action:()=>{
-
-changeStat("strength",1);
-changeStat("fatigue",5);
-
-nextDecision(
-"La convocatoria te motiva a entrenar más fuerte."
-);
-
-}
-},
-
-{
-text:"Estudiar a los Senior",
-action:()=>{
-
-changeStat("reading",2);
-
-nextDecision(
-"Te dedicas a estudiar diferentes estilos de lucha."
-);
-
-}
-},
-
-{
-text:"Trabajar la mentalidad",
-action:()=>{
-
-changeStat("mentality",2);
-
-nextDecision(
-"Trabajas para mantener la calma ante el nuevo desafío."
-);
-
-}
-}
-
-]
-
-});
-
-}
-
-
-/* =====================================================
-   RECHAZAR SENIOR
-===================================================== */
-
-function rejectSeniorCallup(){
-
-closeModal();
-
-addHistory(
-"Rechazaste la convocatoria especial de Senior."
-);
-
-addNews(
-`${player.name} continuará centrado en categoría Cadete.`
-);
-
-
-showStory({
-
-chapter:"Una decisión personal",
-
-title:"Seguir tu camino",
-
-text:
-`Has decidido no aceptar.
-
-El entrenador respeta tu decisión.
-
-Todavía eres Cadete y quieres centrarte
-en construir tu carrera paso a paso.`,
-
-choices:[
-
-{
-text:"Continuar",
-action:()=>{
-
-nextDecision(
-"Decidiste continuar centrado en tu categoría."
-);
-
-}
-}
-
-]
-
-});
-
-}
-
-
-/* =====================================================
-   PREPARAR COMPETICIÓN
-===================================================== */
-
-function prepareFight(){
-
-generateNextRival();
-
-
-/*
-   Animación especial
-   de día de competición.
-*/
-
-const container=
-document.getElementById("storyContainer");
-
-
-container.innerHTML=`
-
-<div class="competition-box">
-
-<div class="competition-title">
-DÍA DE COMPETICIÓN
-</div>
-
-<p style="color:#b6c7d9;">
-La grada empieza a llenarse.
-</p>
-
-<p style="font-size:20px;">
-Ha llegado el momento.
-</p>
-
-<div style="
-margin-top:25px;
-color:#ffd166;
-font-weight:bold;
-">
-CATEGORÍA ${player.category.toUpperCase()}
-</div>
-
-</div>
-
-`;
-
-
-setTimeout(()=>{
-
-showOpponent();
-
-},1800);
-
-}
-
-
-/* =====================================================
-   OPONENTE
-===================================================== */
-
-function showOpponent(){
-
-const rival=player.currentRival;
-
-
-showStory({
-
-chapter:"Día de competición",
-
-title:"La agarrada",
-
-text:
-`El árbitro llama a los luchadores.
-
-Sales al terrero.
-
-Miras al otro lado.
-
-El ambiente cambia completamente.
-
-Tu oponente en esta agarrada es...`,
-
-choices:[
-
-{
-text:`${rival.name}`,
-
-action:()=>{
-
-showOpponentDetails();
-
-}
-
-}
-
-]
-
-});
-
-}
-
-
-/* =====================================================
-   PRESENTAR OPONENTE
-===================================================== */
-
-function showOpponentDetails(){
-
-const rival=player.currentRival;
-
-
-showStory({
-
-chapter:"Día de competición",
-
-title:`Tu oponente es ${rival.name}`,
-
-text:
-`Tu oponente en esta agarrada es ${rival.name}.
-
-Categoría: ${rival.category}
-
-Dificultad estimada: ${rival.difficulty}/100
-
-El árbitro da la señal.
-
-¿Qué le haces?`,
-
-choices:[
-
-{
-text:"Voy con potencia",
-action:()=>fight("power")
-},
-
-{
-text:"Busco la maña",
-action:()=>fight("technique")
-},
-
-{
-text:"Espero su movimiento",
-action:()=>fight("defense")
-},
-
-{
-text:"Lucho con estrategia mixta",
-action:()=>fight("mixed")
-}
-
-]
-
-});
-
-}
-
-
-/* =====================================================
-   GENERAR RIVAL
-===================================================== */
-
-const rivalNames=[
-
-"Álvaro",
-"Diego",
-"Héctor",
-"Adrián",
-"Yeray",
-"Aitor",
-"Saúl",
-"Gabriel",
-"Marco",
-"Izan",
-"Samuel",
-"Bruno",
-"Nayra",
-"Daniel",
-"Kevin",
-"Jorge"
-
-];
-
-
-function generateNextRival(){
-
-const difficulty=
-Math.floor(Math.random()*45)+25;
-
-
-const name=
-rivalNames[
-Math.floor(Math.random()*rivalNames.length)
-];
-
-
-/*
-   MUY IMPORTANTE:
-
-   El rival tiene SIEMPRE la misma categoría
-   que el jugador.
-
-   Cadete = Cadete
-   Juvenil = Juvenil
-   Senior = Senior
-   etc.
-*/
-
-player.currentRival={
-
-name:name,
-
-category:player.category,
-
-difficulty:difficulty
-
-};
-
-}
-
-
-/* =====================================================
-   LUCHA
-===================================================== */
-
-function fight(strategy){
-
-const rival=player.currentRival;
-
-
-let playerPower=
-
-player.strength*.25+
-player.technique*.25+
-player.stamina*.15+
-player.reading*.15+
-player.mentality*.15+
-player.speed*.05;
-
-
-if(strategy==="power"){
-
-playerPower+=player.strength*.25;
-
-}
-
-if(strategy==="technique"){
-
-playerPower+=player.technique*.25;
-
-}
-
-if(strategy==="defense"){
-
-playerPower+=player.reading*.20;
-playerPower+=player.stamina*.10;
-
-}
-
-if(strategy==="mixed"){
-
-playerPower+=player.mentality*.15;
-
-}
-
-
-playerPower-=player.fatigue*.20;
-
-
-const rivalPower=
-rival.difficulty+
-Math.random()*35;
-
-
-const randomFactor=
-Math.random()*25-12;
-
-
-const finalPower=
-playerPower+randomFactor;
-
-
-player.fights++;
-
-player.fatigue+=10;
-
-
-if(finalPower>=rivalPower){
-
-winFight();
-
-}else{
-
-loseFight();
-
-}
-
-}
-
-
-/* =====================================================
-   VICTORIA
-===================================================== */
-
-function winFight(){
-
-player.wins++;
-
-player.reputation+=12;
-
-player.money+=10;
-
-changeStat("mentality",1);
-
-
-addHistory(
-`Victoria frente a ${player.currentRival.name} en categoría ${player.category}.`
-);
-
-addNews(
-`${player.name} consigue una victoria en ${player.category}.`
-);
-
-
-showStory({
-
-chapter:"Final de la agarrada",
-
-title:"¡VICTORIA!",
-
-text:
-`¡Victoria!
-
-${player.currentRival.name} no pudo contigo.
-
-La grada empieza a reconocer tu nombre.
-
-Sales del terrero con una nueva victoria
-en tu historial.`,
-
-choices:[
-
-{
-text:"Seguir adelante",
-action:()=>{
-
-nextDecision(
-`Victoria frente a ${player.currentRival.name}.`
-);
-
-}
-},
-
-{
-text:"Recuperar",
-action:()=>{
-
-changeStat("fatigue",-15);
-
-nextDecision(
-"Después de ganar decidiste recuperar."
-);
-
-}
-}
-
-]
-
-});
-
-}
-
-
-/* =====================================================
-   DERROTA
-===================================================== */
-
-function loseFight(){
-
-player.losses++;
-
-player.reputation=
-Math.max(
-0,
-player.reputation-5
-);
-
-changeStat("mentality",-1);
-
-
-addHistory(
-`Derrota frente a ${player.currentRival.name}.`
-);
-
-addNews(
-`${player.name} sufrió una derrota en su última agarrada.`
-);
-
-
-showStory({
-
-chapter:"Final de la agarrada",
-
-title:"Derrota",
-
-text:
-`Esta vez no pudo ser.
-
-${player.currentRival.name}
-consiguió llevarse la agarrada.
-
-El árbitro da por finalizada la lucha.
-
-Ahora toca levantarse.`,
-
-choices:[
-
-{
-text:"Entrenar más",
-action:()=>{
-
-changeStat("strength",1);
-changeStat("technique",1);
-changeStat("fatigue",7);
-
-nextDecision(
-"La derrota te motiva a entrenar más."
-);
-
-}
-},
-
-{
-text:"Analizar mis errores",
-action:()=>{
-
-changeStat("reading",2);
-
-nextDecision(
-"Analizaste los errores de la agarrada."
-);
-
-}
-},
-
-{
-text:"Descansar",
-action:()=>{
-
-changeStat("fatigue",-20);
-changeStat("mentality",1);
-
-nextDecision(
-"Decidiste recuperarte antes de volver a entrenar."
-);
-
-}
-}
-
-]
-
-});
-
+    saveGame();
 }
 
 
@@ -2213,101 +2357,102 @@ nextDecision(
 
 function randomEvent(){
 
-const events=[
+    const events=[
 
-{
-title:"Consejo del entrenador",
-text:"El entrenador detecta un pequeño detalle técnico que puedes mejorar.",
-stat:"technique",
-amount:1
-},
+        {
+            title:"Un veterano te aconseja",
+            text:"Un luchador con experiencia se queda después del entrenamiento para ayudarte.",
+            changes:{
+                reading:1,
+                technique:1
+            }
+        },
 
-{
-title:"Entrenamiento duro",
-text:"Hoy el entrenamiento ha sido especialmente exigente.",
-stat:"stamina",
-amount:1
-},
+        {
+            title:"Entrenamiento complicado",
+            text:"Hoy todo parece salir mal. Te cuesta más de lo habitual.",
+            changes:{
+                confidence:-1,
+                fatigue:3
+            }
+        },
 
-{
-title:"Buenas sensaciones",
-text:"Sales del entrenamiento con mucha confianza.",
-stat:"mentality",
-amount:1
-},
+        {
+            title:"La grada empieza a conocerte",
+            text:"Algunos aficionados empiezan a preguntar quién eres.",
+            changes:{
+                reputation:5,
+                confidence:1
+            }
+        },
 
-{
-title:"Día complicado",
-text:"Nada termina de salir como querías.",
-stat:"technique",
-amount:-1
-},
+        {
+            title:"Una maña te sorprende",
+            text:"Descubres una variante técnica que podría convertirse en una de tus armas.",
+            changes:{
+                technique:2
+            }
+        },
 
-{
-title:"Recuperación",
-text:"El entrenador decide bajar la carga de trabajo.",
-stat:"fatigue",
-amount:-10
-},
+        {
+            title:"Día de descanso",
+            text:"El cuerpo pide bajar el ritmo. Decides recuperar.",
+            changes:{
+                fatigue:-8,
+                confidence:1
+            }
+        },
 
-{
-title:"Estudiando rivales",
-text:"Pasas un rato observando diferentes estilos de lucha.",
-stat:"reading",
-amount:1
-},
+        {
+            title:"Un compañero te aprieta",
+            text:"Un compañero de entrenamiento te obliga a dar un paso más.",
+            changes:{
+                strength:1,
+                stamina:1,
+                fatigue:2
+            }
+        }
 
-{
-title:"Trabajo de pies",
-text:"Dedicas el entrenamiento a mejorar tus desplazamientos.",
-stat:"speed",
-amount:1
-},
+    ];
 
-{
-title:"Potencia",
-text:"Una sesión específica te deja buenas sensaciones.",
-stat:"strength",
-amount:1
-}
+    const event=choose(events);
 
-];
+    Object.keys(event.changes).forEach(stat=>{
 
+        player[stat]=clamp(
+            player[stat]+event.changes[stat],
+            0,
+            100
+        );
 
-const event=
-events[
-Math.floor(Math.random()*events.length)
-];
+    });
 
+    player.decisions++;
 
-changeStat(
-event.stat,
-event.amount
-);
+    showStory(
 
+        "NOTICIA DE TU CARRERA",
 
-showStory({
+        event.title,
 
-chapter:"Vida deportiva",
+        event.text,
 
-title:event.title,
+        [
 
-text:event.text,
+            {
+                title:"➡️ Seguir",
+                desc:"Continuar con el camino.",
+                action:()=>nextDecision()
+            }
 
-choices:[
+        ]
 
-{
-text:"Continuar",
-action:()=>{
+    );
 
-nextDecision(event.text);
+    addHistory(event.title);
 
-}
-}
-
-]
-
-});
+    updateUI();
+    saveGame();
 
 }
 
@@ -2318,477 +2463,613 @@ nextDecision(event.text);
 
 function showMethodEvent(){
 
-player.methodEventAvailable=true;
+    gameLocked=true;
 
+    const overlay=
+        document.getElementById("methodOverlay");
 
-showModal(`
+    overlay.classList.remove("hidden");
 
-<h2>MÉTODO PROHIBIDO</h2>
+    document.getElementById("methodResult").innerHTML="";
 
-<p>
-Alguien te propone utilizar un método prohibido
-para intentar mejorar tu rendimiento.
-</p>
+    document.getElementById("rouletteText")
+        .textContent="GIRANDO...";
 
-<p style="color:#e63946;font-weight:bold;">
-Si te descubren, tu carrera termina.
-</p>
+    const roulette=
+        document.getElementById("roulette");
 
-<div class="modal-buttons">
+    roulette.style.animation="none";
 
-<button
-class="reject"
-onclick="rejectMethod()"
->
-RECHAZAR
-</button>
+    void roulette.offsetWidth;
 
-<button
-class="accept"
-onclick="acceptMethod()"
->
-ASUMIR EL RIESGO
-</button>
+    roulette.style.animation=
+        "rouletteSpin 2s cubic-bezier(.1,.7,.2,1)";
 
-</div>
+    setTimeout(()=>{
 
-`);
+        const caught=
+            Math.random()<0.80;
 
-}
+        if(caught){
 
+            document.getElementById("rouletteText")
+                .textContent="TE PILLARON";
 
-function rejectMethod(){
+            document.getElementById("methodResult").innerHTML=`
 
-closeModal();
+                <div style="
+                    margin-top:20px;
+                    color:#ff7588;
+                    font-size:18px;
+                    font-weight:900;
+                ">
+                    🚨 HAN DESCUBIERTO LO OCURRIDO
+                </div>
 
-player.methodEventAvailable=false;
+            `;
 
-addHistory(
-"Rechazaste utilizar un método prohibido."
-);
+            setTimeout(()=>{
 
-addNews(
-`${player.name} rechazó una propuesta de método prohibido.`
-);
+                overlay.classList.add("hidden");
 
-nextDecision(
-"Decidiste continuar tu carrera por el camino deportivo."
-);
+                gameLocked=true;
 
-}
+                document.getElementById("gameOver")
+                    .classList.remove("hidden");
 
+                localStorage.removeItem("caminoTerreroSave");
 
-/*
-   Evento completamente ficticio.
-*/
+            },1800);
 
-function acceptMethod(){
+        }else{
 
-closeModal();
+            document.getElementById("rouletteText")
+                .textContent="FUNCIONÓ";
 
-showRoulette();
+            document.getElementById("methodResult").innerHTML=`
 
-}
+                <div style="
+                    margin-top:20px;
+                    color:#63eca7;
+                    font-size:18px;
+                    font-weight:900;
+                ">
+                    ⚡ RESULTADO POSITIVO
+                </div>
 
+            `;
 
-/* =====================================================
-   RULETA
-===================================================== */
+            player.strength=
+                clamp(player.strength+20,0,100);
 
-function showRoulette(){
+            player.confidence=
+                clamp(player.confidence+4,0,100);
 
-showModal(`
+            addHistory(
+                "Un evento misterioso alteró tu preparación."
+            );
 
-<h2>RULETA DE RIESGO</h2>
+            setTimeout(()=>{
 
-<p>
-La decisión ya está tomada.
-</p>
+                overlay.classList.add("hidden");
 
-<p>
-La ruleta decidirá el resultado.
-</p>
+                gameLocked=false;
 
-<div
-class="roulette"
-id="roulette"
->
+                showStory(
 
-<div class="roulette-pointer"></div>
+                    "MOMENTO EXTRAÑO",
 
-</div>
+                    "Algo ha cambiado",
 
-<button
-id="spinButton"
-class="accept"
-onclick="spinRoulette()"
->
-GIRAR RULETA
-</button>
+                    "Notas un cambio importante en tu rendimiento. Nadie sabe exactamente por qué.",
 
-`);
+                    [
 
-}
+                        {
+                            title:"➡️ Continuar",
+                            desc:"No mirar atrás.",
+                            action:()=>nextDecision()
+                        }
 
+                    ]
 
-function spinRoulette(){
+                );
 
-const roulette=
-document.getElementById("roulette");
+                updateUI();
+                saveGame();
 
-const button=
-document.getElementById("spinButton");
+            },1800);
 
-button.disabled=true;
+        }
 
-
-const success=
-Math.random()<0.20;
-
-
-roulette.classList.add("spin");
-
-
-setTimeout(()=>{
-
-if(success){
-
-methodSuccess();
-
-}else{
-
-methodCaught();
-
-}
-
-},3300);
+    },2200);
 
 }
 
 
 /* =====================================================
-   RESULTADO
+   COMBATE
 ===================================================== */
 
-function methodSuccess(){
+function prepareFight(){
 
-closeModal();
+    currentRival=generateNextRival();
 
-player.methodEventAvailable=false;
+    document.getElementById("storyContainer")
+        .innerHTML="";
 
-changeStat("strength",20);
+    document.getElementById("resultContainer")
+        .innerHTML="";
 
-changeStat("fatigue",10);
+    document.getElementById("fightContainer").innerHTML=`
 
+        <div class="fight-card">
 
-addHistory(
-"El resultado de la decisión de riesgo fue favorable."
-);
+            <div class="fight-label">
+                PRÓXIMA COMPETICIÓN
+            </div>
 
-addNews(
-"Un extraño episodio sacude la temporada juvenil."
-);
+            <h2>DÍA DE COMPETICIÓN</h2>
 
+            <p style="color:#aeb7d0;">
+                Has llegado al terrero. La grada está lista.
+            </p>
 
-showStory({
+            <div class="rival-box">
 
-chapter:"Una decisión peligrosa",
+                <div class="rival-avatar">
+                    ${currentRival.name.charAt(0)}
+                </div>
 
-title:"El resultado",
+                <div class="vs">
+                    VS
+                </div>
 
-text:
-`El resultado de la ruleta ha sido favorable.
+                <div style="text-align:left;">
+                    <div class="rival-name">
+                        ${currentRival.name}
+                    </div>
 
-Has obtenido una mejora importante de potencia.
+                    <div class="rival-info">
+                        ${currentRival.team}
+                    </div>
 
-Pero el riesgo que asumiste podría haber terminado
-con tu carrera.`,
+                    <div class="rival-info">
+                        Categoría ${currentRival.category}
+                    </div>
+                </div>
 
-choices:[
+            </div>
 
-{
-text:"Continuar",
-action:()=>{
+            <button
+                class="choice"
+                style="width:100%;text-align:center;"
+                onclick="showOpponentDetails()"
+            >
+                🔥 VER AL OPONENTE
+            </button>
 
-nextDecision(
-"Decidiste continuar después del extraño episodio."
-);
+        </div>
+
+    `;
 
 }
-}
 
-]
 
-});
+function showOpponentDetails(){
+
+    const container=
+        document.getElementById("fightContainer");
+
+    container.innerHTML=`
+
+        <div class="fight-card">
+
+            <div class="fight-label">
+                DÍA DE COMPETICIÓN
+            </div>
+
+            <h2>
+                TU OPONENTE
+            </h2>
+
+            <div class="rival-box">
+
+                <div class="rival-avatar">
+                    ${currentRival.name.charAt(0)}
+                </div>
+
+                <div style="text-align:left;">
+
+                    <div class="rival-name">
+                        ${currentRival.name}
+                    </div>
+
+                    <div class="rival-info">
+                        ${currentRival.team}
+                    </div>
+
+                    <div class="rival-info">
+                        ${currentRival.category}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p style="color:#c4cbe0;">
+                Tu oponente en esta agarrada es
+                <strong>${currentRival.name}</strong>.
+                La lucha está a punto de comenzar.
+            </p>
+
+            <div class="fight-choices">
+
+                <button class="fight-btn"
+                    onclick="fight('power')">
+                    💪 POTENCIA
+                </button>
+
+                <button class="fight-btn"
+                    onclick="fight('technique')">
+                    🎯 TÉCNICA
+                </button>
+
+                <button class="fight-btn"
+                    onclick="fight('defense')">
+                    🛡️ DEFENSA
+                </button>
+
+                <button class="fight-btn"
+                    onclick="fight('mixed')">
+                    ⚡ ESTRATEGIA MIXTA
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
 
 /* =====================================================
-   DESCUBIERTO
+   RIVALES
 ===================================================== */
 
-function methodCaught(){
+const rivalNames=[
 
-closeModal();
-
-player.methodEventAvailable=false;
-
-
-addHistory(
-"Has sido descubierto utilizando un método prohibido."
-);
-
-addNews(
-`ÚLTIMA HORA: ${player.name} ha sido descubierto utilizando un método prohibido.`
-);
-
-
-setTimeout(()=>{
-
-document
-.getElementById("gameOverScreen")
-.classList.remove("hidden");
-
-},500);
-
-}
-
-
-/* =====================================================
-   NOTICIAS DEL MUNDO
-===================================================== */
-
-function addWorldNews(){
-
-const worldNews=[
-
-"Los clubes preparan a sus jóvenes para una nueva jornada.",
-
-"Los aficionados empiezan a hablar de las nuevas promesas.",
-
-"Varios entrenadores destacan el nivel de la nueva generación.",
-
-"Los clubes trabajan nuevas estrategias para las próximas jornadas.",
-
-"El ambiente aumenta en los terreros antes de una nueva jornada.",
-
-"Un joven luchador comienza a llamar la atención de varios clubes.",
-
-"Los equipos intensifican sus entrenamientos.",
-
-"La próxima jornada comienza a generar expectación.",
-
-"Varios clubes preparan cambios importantes en sus plantillas.",
-
-"Los aficionados ya hablan de posibles revelaciones."
+    "Alejandro Santana",
+    "Diego Rodríguez",
+    "Adrián González",
+    "Yeray Hernández",
+    "Aitor Suárez",
+    "Kevin García",
+    "Álvaro Martín",
+    "Samuel Cabrera",
+    "Airam Torres",
+    "Izan Morales",
+    "Jonathan Díaz",
+    "Gabriel Navarro",
+    "Mario Pérez",
+    "Nauzet Medina",
+    "Bruno Ramírez"
 
 ];
 
 
-const news=
-worldNews[
-Math.floor(Math.random()*worldNews.length)
-];
+function generateNextRival(){
 
+    let possibleTeams=[];
 
-addNews(news);
+    Object.keys(teams).forEach(island=>{
 
-}
+        teams[island].forEach(team=>{
 
+            if(team.name!==player.team){
 
-/* =====================================================
-   NOTICIAS
-===================================================== */
+                possibleTeams.push(team);
 
-function addNews(text){
+            }
 
-player.news.unshift({
+        });
 
-season:player.season,
+    });
 
-week:player.week,
+    const team=choose(possibleTeams);
 
-text:text
+    return{
 
-});
+        name:choose(rivalNames),
 
+        team:team.name,
 
-if(player.news.length>30){
+        category:player.category,
 
-player.news.pop();
+        strength:random(
+            Math.max(3,player.strength-5),
+            Math.min(100,player.strength+7)
+        ),
 
-}
+        technique:random(
+            Math.max(3,player.technique-5),
+            Math.min(100,player.technique+7)
+        ),
 
-renderNews();
+        stamina:random(
+            Math.max(3,player.stamina-5),
+            Math.min(100,player.stamina+7)
+        ),
 
-}
+        reading:random(
+            Math.max(3,player.reading-5),
+            Math.min(100,player.reading+7)
+        )
 
-
-function renderNews(){
-
-const container=
-document.getElementById("newsContainer");
-
-if(!container)return;
-
-container.innerHTML="";
-
-
-player.news.forEach(news=>{
-
-const div=
-document.createElement("div");
-
-div.className="news-item";
-
-div.innerHTML=`
-
-<div class="news-date">
-Temporada ${news.season}
-· Semana ${news.week}
-</div>
-
-${news.text}
-
-`;
-
-container.appendChild(div);
-
-});
+    };
 
 }
 
 
 /* =====================================================
-   HISTORIAL
+   RESULTADO DEL COMBATE
 ===================================================== */
 
-function addHistory(text){
+function fight(strategy){
 
-player.history.unshift({
+    if(!currentRival || gameLocked)return;
 
-season:player.season,
+    let playerPower=0;
 
-week:player.week,
+    let rivalPower=
+        currentRival.strength+
+        currentRival.technique+
+        currentRival.stamina+
+        currentRival.reading;
 
-text:text
+    if(strategy==="power"){
 
-});
+        playerPower=
+            player.strength*1.4+
+            player.stamina*.4+
+            player.confidence*.2;
 
-renderHistory();
+    }
+
+    if(strategy==="technique"){
+
+        playerPower=
+            player.technique*1.4+
+            player.reading*.5+
+            player.confidence*.2;
+
+    }
+
+    if(strategy==="defense"){
+
+        playerPower=
+            player.reading*1.2+
+            player.stamina+
+            player.confidence*.3;
+
+    }
+
+    if(strategy==="mixed"){
+
+        playerPower=
+            (
+                player.strength+
+                player.technique+
+                player.stamina+
+                player.reading
+            )*1.05+
+            player.confidence*.3;
+
+    }
+
+    playerPower+=random(-12,12);
+
+    rivalPower+=random(-12,12);
+
+    player.fights++;
+
+    const won=playerPower>=rivalPower;
+
+    if(won){
+
+        player.wins++;
+
+        player.reputation+=random(12,25);
+
+        player.confidence=
+            clamp(player.confidence+random(1,4),0,100);
+
+        player.money+=random(10,30);
+
+        if(Math.random()<0.08){
+
+            player.titles++;
+
+        }
+
+        addHistory(
+            `Victoria contra ${currentRival.name}.`
+        );
+
+        showResult(true);
+
+    }else{
+
+        player.losses++;
+
+        player.reputation=
+            Math.max(0,player.reputation-random(3,10));
+
+        player.confidence=
+            clamp(player.confidence-random(1,4),0,100);
+
+        addHistory(
+            `Derrota contra ${currentRival.name}.`
+        );
+
+        showResult(false);
+
+    }
+
+    player.fatigue=
+        clamp(player.fatigue+random(5,12),0,100);
+
+    checkPromotion();
+
+    generateCalendar();
+
+    updateUI();
+    saveGame();
 
 }
 
 
-function renderHistory(){
+function showResult(won){
 
-const container=
-document.getElementById("historyContainer");
+    const container=
+        document.getElementById("resultContainer");
 
-if(!container)return;
+    if(won){
 
-container.innerHTML="";
+        container.innerHTML=`
+
+            <div class="result win">
+
+                <div class="result-icon">🏆</div>
+
+                <h2>¡VICTORIA!</h2>
+
+                <p>
+                    Has conseguido superar a
+                    <strong>${currentRival.name}</strong>.
+                </p>
+
+                <button
+                    class="accept-btn"
+                    onclick="continueAfterFight()"
+                >
+                    CONTINUAR CARRERA
+                </button>
+
+            </div>
+
+        `;
+
+    }else{
+
+        container.innerHTML=`
+
+            <div class="result loss">
+
+                <div class="result-icon">🥊</div>
+
+                <h2>DERROTA</h2>
+
+                <p>
+                    Esta vez ${currentRival.name}
+                    consiguió imponerse.
+                </p>
+
+                <button
+                    class="restart-btn"
+                    style="margin-top:20px;"
+                    onclick="continueAfterFight()"
+                >
+                    SEGUIR ADELANTE
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+    document.getElementById("fightContainer")
+        .innerHTML="";
+
+}
 
 
-player.history.forEach(item=>{
+function continueAfterFight(){
 
-const div=
-document.createElement("div");
+    document.getElementById("resultContainer")
+        .innerHTML="";
 
-div.className="news-item";
+    player.decisions++;
 
-div.innerHTML=`
+    nextDecision();
 
-<div class="news-date">
-Temporada ${item.season}
-· Semana ${item.week}
-</div>
-
-${item.text}
-
-`;
-
-container.appendChild(div);
-
-});
+    saveGame();
 
 }
 
 
 /* =====================================================
-   ESTADÍSTICAS
+   PROMOCIONES
 ===================================================== */
 
-const statNames={
+function checkPromotion(){
 
-strength:"Fuerza",
-technique:"Técnica",
-stamina:"Resistencia",
-reading:"Lectura",
-mentality:"Mentalidad",
-speed:"Velocidad",
-fatigue:"Fatiga"
+    let currentIndex=
+        categories.findIndex(
+            c=>c.name===player.category
+        );
 
-};
+    if(currentIndex===-1)return;
 
+    const next=
+        categories[currentIndex+1];
 
-function renderStats(){
+    if(!next)return;
 
-const container=
-document.getElementById("statsContainer");
+    if(
+        player.season>=next.season &&
+        player.reputation>=next.requirement
+    ){
 
-container.innerHTML="";
+        player.category=next.name;
 
+        player.confidence=
+            clamp(player.confidence+5,0,100);
 
-Object.keys(statNames).forEach(stat=>{
+        addHistory(
+            `Ascenso a categoría ${next.name}.`
+        );
 
-const value=player[stat];
+        addNews(
+            "🚀",
+            "Ascenso de categoría",
+            `${player.name} ha subido a ${next.name}.`
+        );
 
-const max=
-stat==="fatigue"
-?100
-:30;
+        showStory(
 
-const percentage=
-Math.min(
-100,
-Math.max(
-0,
-(value/max)*100
-)
-);
+            "ASCENSO",
 
+            `AHORA ERES ${next.name.toUpperCase()}`,
 
-const div=
-document.createElement("div");
+            `Tu rendimiento durante la temporada ha sido suficiente.
+            Has dado otro paso en tu carrera.`,
 
-div.className="stat";
+            [
 
-div.innerHTML=`
+                {
+                    title:"🔥 Continuar",
+                    desc:"Seguir construyendo tu carrera.",
+                    action:()=>nextDecision()
+                }
 
-<div class="stat-name">
-${statNames[stat]}
-</div>
+            ]
 
-<div class="stat-value">
-${value}
-</div>
+        );
 
-<div class="bar">
-
-<div
-class="bar-fill"
-style="width:${percentage}%"
-></div>
-
-</div>
-
-`;
-
-container.appendChild(div);
-
-});
+    }
 
 }
 
@@ -2799,236 +3080,722 @@ container.appendChild(div);
 
 function generateCalendar(){
 
-player.calendar=[];
+    if(!player)return;
 
+    player.calendar=[];
 
-for(let i=1;i<=8;i++){
+    for(let i=1;i<=6;i++){
 
-player.calendar.push({
+        player.calendar.push({
 
-week:player.week+i,
+            date:`${10+i}/${player.season}`,
 
-event:
-i%2===0
-?"Posible jornada de competición"
-:"Entrenamiento"
+            opponent:choose(rivalNames),
 
-});
+            category:player.category,
 
-}
+            type:i===1 ? "Próxima lucha" : "Jornada"
 
-renderCalendar();
+        });
+
+    }
+
+    renderCalendar();
 
 }
 
 
 function renderCalendar(){
 
-const container=
-document.getElementById("calendarContainer");
+    const list=
+        document.getElementById("calendarList");
 
-container.innerHTML="";
+    if(!list || !player)return;
 
+    list.innerHTML="";
 
-player.calendar.forEach(item=>{
+    player.calendar.forEach((item,index)=>{
 
-const div=
-document.createElement("div");
+        list.innerHTML+=`
 
-div.className="card";
+            <div class="calendar-item">
 
-div.innerHTML=`
+                <div class="calendar-date">
 
-<h3>
-Semana ${item.week}
-</h3>
+                    <strong>
+                        ${item.date.split("/")[0]}
+                    </strong>
 
-<p>
-${item.event}
-</p>
+                    <span>
+                        TEMP.
+                    </span>
 
-`;
+                </div>
 
-container.appendChild(div);
+                <div class="calendar-info">
 
-});
+                    <strong>
+                        ${item.opponent}
+                    </strong>
+
+                    <span>
+                        ${item.category}
+                    </span>
+
+                </div>
+
+                <div class="tag ${
+                    index===0 ? "red":"blue"
+                }">
+
+                    ${
+                        index===0
+                        ?"PRÓXIMA"
+                        :"JORNADA"
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
 
 }
 
 
 /* =====================================================
-   CAMBIAR ESTADÍSTICA
+   NOTICIAS
 ===================================================== */
 
-function changeStat(stat,amount){
+const worldNews=[
 
-if(!player)return;
+    {
+        icon:"🔥",
+        title:"El mercado se mueve",
+        text:"Varios clubes empiezan a buscar jóvenes luchadores para la próxima temporada."
+    },
 
-if(typeof player[stat]!=="number")return;
+    {
+        icon:"🏟️",
+        title:"Terrero lleno",
+        text:"La afición responde y varias jornadas registran una gran entrada."
+    },
+
+    {
+        icon:"⚔️",
+        title:"Rivalidad histórica",
+        text:"Dos clubes preparan una jornada que promete ser especialmente intensa."
+    },
+
+    {
+        icon:"📢",
+        title:"Movimiento en los clubes",
+        text:"Los entrenadores comienzan a preparar los próximos enfrentamientos."
+    },
+
+    {
+        icon:"⭐",
+        title:"Nueva generación",
+        text:"Varios luchadores jóvenes empiezan a llamar la atención en los terreros."
+    },
+
+    {
+        icon:"🏆",
+        title:"Temporada en marcha",
+        text:"La clasificación comienza a apretarse y cada punto empieza a tener importancia."
+    },
+
+    {
+        icon:"👀",
+        title:"Un nombre empieza a sonar",
+        text:"En algunos terreros se habla de un joven luchador que está sorprendiendo."
+    }
+
+];
 
 
-player[stat]+=amount;
+function addNews(icon,title,text){
 
+    if(!player)return;
 
-if(stat==="fatigue"){
+    player.news.unshift({
+        icon,
+        title,
+        text
+    });
 
-player[stat]=Math.max(
-0,
-Math.min(100,player[stat])
-);
+    if(player.news.length>12){
 
-}else{
+        player.news.pop();
 
-player[stat]=Math.max(
-0,
-Math.min(99,player[stat])
-);
+    }
+
+    renderNews();
 
 }
 
 
-updateAll();
+function renderNews(){
+
+    const list=
+        document.getElementById("newsList");
+
+    if(!list || !player)return;
+
+    list.innerHTML="";
+
+    const combined=[
+        ...player.news,
+        ...worldNews
+    ];
+
+    combined.slice(0,12).forEach(news=>{
+
+        list.innerHTML+=`
+
+            <div class="news-item">
+
+                <div class="news-icon">
+                    ${news.icon}
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${news.title}
+                    </strong>
+
+                    <p>
+                        ${news.text}
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
 
 }
 
 
 /* =====================================================
-   ACTUALIZAR
+   HISTORIAL
 ===================================================== */
 
-function updateAll(){
+function addHistory(text){
 
-if(!player)return;
+    if(!player)return;
+
+    player.history.unshift({
+
+        season:player.season,
+
+        category:player.category,
+
+        text:text
+
+    });
+
+    if(player.history.length>30){
+
+        player.history.pop();
+
+    }
+
+    renderHistory();
+
+}
 
 
-document.getElementById("headerName")
-.textContent=player.name;
+function renderHistory(){
 
+    const list=
+        document.getElementById("historyList");
 
-document.getElementById("headerInfo")
-.textContent=
-`${player.category} · ${player.club} · Temporada ${player.season}`;
+    if(!list || !player)return;
 
+    list.innerHTML="";
 
-renderStats();
-renderNews();
-renderHistory();
-renderCalendar();
+    if(player.history.length===0){
 
-saveGame();
+        list.innerHTML=`
+
+            <div class="history-item">
+                Todavía no hay acontecimientos.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    player.history.forEach(item=>{
+
+        list.innerHTML+=`
+
+            <div class="history-item">
+
+                <div style="
+                    color:#ffc928;
+                    font-size:10px;
+                    font-weight:900;
+                ">
+                    TEMPORADA ${item.season}
+                    · ${item.category}
+                </div>
+
+                <div style="
+                    margin-top:6px;
+                    font-size:12px;
+                ">
+                    ${item.text}
+                </div>
+
+            </div>
+
+        `;
+
+    });
 
 }
 
 
 /* =====================================================
-   PÁGINAS
+   OFERTAS
 ===================================================== */
 
-function showPage(page,button=null){
+function generateOffers(){
 
-document
-.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+    if(!player)return;
 
+    player.offers=[];
 
-document
-.getElementById(page)
-.classList.add("active");
+    const available=[];
 
+    Object.keys(teams).forEach(island=>{
 
-if(button){
+        teams[island].forEach(team=>{
 
-document
-.querySelectorAll(".nav-btn")
-.forEach(b=>b.classList.remove("active"));
+            if(team.name!==player.team){
 
-button.classList.add("active");
+                available.push(team);
+
+            }
+
+        });
+
+    });
+
+    const shuffled=[...available]
+        .sort(()=>Math.random()-.5);
+
+    shuffled.slice(0,3).forEach(team=>{
+
+        player.offers.push({
+
+            team:team.name,
+
+            league:team.league,
+
+            money:random(20,100),
+
+            reputation:random(5,20)
+
+        });
+
+    });
+
+    renderOffers();
 
 }
+
+
+function renderOffers(){
+
+    const list=
+        document.getElementById("offerList");
+
+    if(!list || !player)return;
+
+    list.innerHTML="";
+
+    if(player.offers.length===0){
+
+        list.innerHTML=`
+
+            <div class="offer-item">
+                No tienes ofertas nuevas todavía.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    player.offers.forEach(offer=>{
+
+        list.innerHTML+=`
+
+            <div class="offer-item">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:15px;
+                ">
+
+                    <div>
+
+                        <strong>
+                            ${offer.team}
+                        </strong>
+
+                        <div style="
+                            color:#aeb7d0;
+                            font-size:10px;
+                            margin-top:4px;
+                        ">
+                            ${offer.league}
+                        </div>
+
+                    </div>
+
+                    <div class="tag gold">
+                        ${offer.money} €
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
 
 }
 
 
 /* =====================================================
-   MODAL
+   ESTADÍSTICAS
 ===================================================== */
 
-function showModal(content){
+function renderStats(){
 
-document
-.getElementById("modalBox")
-.innerHTML=content;
+    if(!player)return;
 
-document
-.getElementById("modal")
-.classList.remove("hidden");
+    const stats=[
 
-}
+        ["💪 Fuerza","strength"],
 
+        ["🎯 Técnica","technique"],
 
-function closeModal(){
+        ["🫁 Resistencia","stamina"],
 
-document
-.getElementById("modal")
-.classList.add("hidden");
+        ["🧠 Lectura","reading"],
+
+        ["🔥 Confianza","confidence"],
+
+        ["😮‍💨 Fatiga","fatigue"]
+
+    ];
+
+    const grid=
+        document.getElementById("statsGrid");
+
+    grid.innerHTML="";
+
+    stats.forEach(([name,key])=>{
+
+        const value=player[key];
+
+        grid.innerHTML+=`
+
+            <div class="big-stat">
+
+                <div class="big-stat-head">
+
+                    <strong>${name}</strong>
+
+                    <span>${value}/100</span>
+
+                </div>
+
+                <div class="big-progress">
+
+                    <div
+                        style="width:${clamp(value,0,100)}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+    document.getElementById("statWins")
+        .textContent=player.wins;
+
+    document.getElementById("statLosses")
+        .textContent=player.losses;
+
+    document.getElementById("statRep")
+        .textContent=player.reputation;
+
+    document.getElementById("statTitles")
+        .textContent=player.titles;
+
+    document.getElementById("statsCategory")
+        .textContent=player.category;
 
 }
 
 
 /* =====================================================
-   GUARDAR
+   UI
+===================================================== */
+
+function updateUI(){
+
+    if(!player)return;
+
+    document.getElementById("heroName")
+        .textContent=player.name;
+
+    document.getElementById("heroTeam")
+        .textContent=
+            `${player.team} · ${player.league}`;
+
+    document.getElementById("heroCategory")
+        .textContent=
+            player.category.toUpperCase();
+
+    document.getElementById("miniName")
+        .textContent=player.name;
+
+    document.getElementById("miniCategory")
+        .textContent=player.category;
+
+    document.getElementById("miniAvatar")
+        .textContent=
+            player.name.charAt(0).toUpperCase();
+
+    updateQuick(
+        "Strength",
+        player.strength
+    );
+
+    updateQuick(
+        "Technique",
+        player.technique
+    );
+
+    updateQuick(
+        "Stamina",
+        player.stamina
+    );
+
+    updateQuick(
+        "Reading",
+        player.reading
+    );
+
+    updateQuick(
+        "Confidence",
+        player.confidence
+    );
+
+    renderStats();
+    renderCalendar();
+    renderNews();
+    renderHistory();
+    renderOffers();
+
+}
+
+
+function updateQuick(name,value){
+
+    const capital=
+        name.charAt(0).toUpperCase()+name.slice(1);
+
+    const valueEl=
+        document.getElementById(
+            "quick"+capital
+        );
+
+    const barEl=
+        document.getElementById(
+            "quick"+capital+"Bar"
+        );
+
+    if(valueEl)valueEl.textContent=value;
+
+    if(barEl){
+
+        barEl.style.width=
+            `${clamp(value,0,100)}%`;
+
+    }
+
+}
+
+
+/* =====================================================
+   SECCIONES
+===================================================== */
+
+function showSection(section,button){
+
+    document
+        .querySelectorAll(
+            "#careerSection,#calendarSection,#newsSection,#statsSection,#historySection,#offersSection"
+        )
+        .forEach(el=>el.classList.add("hidden"));
+
+    document
+        .getElementById(section+"Section")
+        .classList.remove("hidden");
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn=>btn.classList.remove("active"));
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+}
+
+
+/* =====================================================
+   TEMPORADAS
+===================================================== */
+
+function newSeason(){
+
+    player.season++;
+
+    player.fatigue=
+        clamp(player.fatigue-25,0,100);
+
+    player.confidence=
+        clamp(player.confidence+2,0,100);
+
+    generateCalendar();
+    generateOffers();
+
+    addNews(
+        "📅",
+        "Nueva temporada",
+        `Comienza la temporada ${player.season}.`
+    );
+
+    addHistory(
+        `Comienza la temporada ${player.season}.`
+    );
+
+    checkPromotion();
+
+    updateUI();
+    saveGame();
+
+}
+
+
+/* =====================================================
+   GUARDADO
 ===================================================== */
 
 function saveGame(){
 
-if(!player)return;
+    if(!player)return;
 
-localStorage.setItem(
-"caminoTerreroSave",
-JSON.stringify(player)
-);
+    localStorage.setItem(
+        "caminoTerreroSave",
+        JSON.stringify(player)
+    );
 
 }
 
-
-/* =====================================================
-   CARGAR
-===================================================== */
 
 function loadGame(){
 
-const saved=
-localStorage.getItem(
-"caminoTerreroSave"
-);
+    const saved=
+        localStorage.getItem(
+            "caminoTerreroSave"
+        );
 
+    if(!saved)return false;
 
-if(!saved)return;
+    try{
 
+        player=JSON.parse(saved);
 
-try{
+        selectedIsland=player.island;
 
-player=JSON.parse(saved);
+        selectedTeam=
+            teams[selectedIsland]
+            ?.find(t=>t.name===player.team)
+            ||null;
 
-decisions=player.decisions||0;
+        document.getElementById("creationScreen")
+            .classList.add("hidden");
 
-document
-.getElementById("creationScreen")
-.classList.add("hidden");
+        document.getElementById("game")
+            .classList.remove("hidden");
 
-document
-.getElementById("game")
-.classList.remove("hidden");
+        updateUI();
 
-updateAll();
+        firstContinueStory();
 
-}catch(error){
+        return true;
 
-localStorage.removeItem(
-"caminoTerreroSave"
-);
+    }catch(e){
+
+        localStorage.removeItem(
+            "caminoTerreroSave"
+        );
+
+        return false;
+
+    }
 
 }
+
+
+function firstContinueStory(){
+
+    showStory(
+
+        "TU CARRERA",
+
+        `Bienvenido de nuevo, ${player.name}`,
+
+        `Estás en la temporada ${player.season},
+        categoría ${player.category}.
+        Tu historia continúa.`,
+
+        [
+
+            {
+                title:"🔥 Continuar",
+                desc:"Seguir con tu carrera.",
+                action:()=>nextDecision()
+            }
+
+        ]
+
+    );
 
 }
 
@@ -3037,71 +3804,57 @@ localStorage.removeItem(
    REINICIAR
 ===================================================== */
 
-function restartGame(){
+function restartCareer(){
 
-localStorage.removeItem(
-"caminoTerreroSave"
-);
+    localStorage.removeItem(
+        "caminoTerreroSave"
+    );
 
-
-player=null;
-
-selectedIsland=null;
-selectedTeam=null;
-
-decisions=0;
-
-methodChanceUsed=false;
-
-
-document
-.getElementById("gameOverScreen")
-.classList.add("hidden");
-
-
-document
-.getElementById("game")
-.classList.add("hidden");
-
-
-document
-.getElementById("creationScreen")
-.classList.remove("hidden");
-
-
-document
-.getElementById("playerName")
-.value="";
-
-
-document
-.getElementById("teams")
-.innerHTML=`
-<p style="color:#8fa4bb;">
-Selecciona una isla para ver los clubes.
-</p>
-`;
-
-
-document
-.querySelectorAll(".island")
-.forEach(
-b=>b.classList.remove("selected")
-);
-
-
-document
-.getElementById("startButton")
-.disabled=true;
+    location.reload();
 
 }
 
 
 /* =====================================================
-   INICIAR
+   AUTO NOTICIAS
 ===================================================== */
 
-loadGame();
+setInterval(()=>{
+
+    if(
+        player &&
+        !document.getElementById("game")
+            .classList.contains("hidden")
+    ){
+
+        if(Math.random()<0.35){
+
+            const news=choose(worldNews);
+
+            addNews(
+                news.icon,
+                news.title,
+                news.text
+            );
+
+            saveGame();
+
+        }
+
+    }
+
+},30000);
+
+
+/* =====================================================
+   CARGAR
+===================================================== */
+
+window.addEventListener("load",()=>{
+
+    loadGame();
+
+});
 
 </script>
 
