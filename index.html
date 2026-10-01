@@ -8,330 +8,343 @@
 <style>
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
     min-height: 100vh;
     background:
-        radial-gradient(circle at top left, #ff4d6d, transparent 35%),
-        radial-gradient(circle at bottom right, #4d7cff, transparent 35%),
-        linear-gradient(135deg, #15152b, #25254a);
-    color: white;
+        radial-gradient(circle at 10% 10%, #ff3158 0%, transparent 30%),
+        radial-gradient(circle at 90% 90%, #315cff 0%, transparent 30%),
+        linear-gradient(135deg, #11142b, #292052);
+}
+
+button,
+input,
+select {
+    font: inherit;
 }
 
 button {
-    font-family: inherit;
+    cursor: pointer;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* MENÚ */
+/* =========================
+   INICIO
+========================= */
 
-.screen {
+#startScreen {
     min-height: 100vh;
-    padding: 25px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.menu {
+.start-box {
     width: 100%;
-    max-width: 900px;
+    max-width: 600px;
+    padding: 35px;
     text-align: center;
+    border-radius: 30px;
+    background: rgba(255,255,255,.10);
+    border: 2px solid rgba(255,255,255,.18);
+    box-shadow: 0 20px 70px rgba(0,0,0,.45);
+    backdrop-filter: blur(15px);
 }
 
 .logo {
-    font-size: clamp(42px, 8vw, 80px);
+    font-size: clamp(38px, 8vw, 70px);
     font-weight: 900;
+    line-height: .95;
     text-transform: uppercase;
-    text-shadow: 4px 4px 0 #000;
-    margin-bottom: 10px;
+    text-shadow: 4px 4px #000;
+    margin-bottom: 12px;
 }
 
-.subtitle {
+.start-box p {
     opacity: .8;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
-.card {
-    background: rgba(255,255,255,.10);
-    border: 2px solid rgba(255,255,255,.18);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.35);
-    backdrop-filter: blur(12px);
-}
-
-input, select {
+.start-box input,
+.start-box select {
+    display: block;
     width: 100%;
     padding: 15px;
-    border: none;
+    margin: 12px 0;
+    border: 0;
     border-radius: 14px;
-    margin: 8px 0;
-    font-size: 16px;
+    outline: none;
 }
 
-.main-btn {
-    border: none;
-    border-radius: 16px;
-    padding: 15px 25px;
-    margin-top: 15px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
+.primary {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 15px;
     color: white;
-    background: linear-gradient(135deg,#ff416c,#ff4b2b);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ff3158, #ff7b25);
     transition: .2s;
 }
 
-.main-btn:hover {
-    transform: translateY(-3px) scale(1.02);
+.primary:hover {
+    transform: scale(1.03);
 }
 
-/* JUEGO */
+/* =========================
+   JUEGO
+========================= */
 
-.game {
-    max-width: 1100px;
-    width: 100%;
+#gameScreen {
+    max-width: 1200px;
     margin: auto;
-    padding: 15px;
+    padding: 20px;
 }
 
-.topbar {
+.header {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 15px;
 }
 
-.info {
-    background: rgba(255,255,255,.11);
-    border-radius: 15px;
-    padding: 13px;
+.header-card {
+    padding: 14px;
     text-align: center;
+    border-radius: 16px;
+    background: rgba(255,255,255,.10);
     border: 1px solid rgba(255,255,255,.15);
 }
 
-.info small {
+.header-card small {
     opacity: .65;
 }
 
-.info strong {
+.header-card strong {
     display: block;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 
-.game-grid {
+.layout {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 310px;
     gap: 15px;
 }
 
 .panel {
+    padding: 25px;
+    border-radius: 25px;
     background: rgba(255,255,255,.10);
-    border-radius: 22px;
-    padding: 22px;
     border: 1px solid rgba(255,255,255,.15);
-    box-shadow: 0 15px 35px rgba(0,0,0,.25);
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
 }
 
-.event-title {
-    font-size: 28px;
+#eventTitle {
+    font-size: 30px;
     font-weight: 900;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
-.event-text {
+#eventText {
     line-height: 1.6;
+    margin-bottom: 22px;
     opacity: .9;
-    margin-bottom: 20px;
 }
 
-.options {
+/* =========================
+   BOTONES DE ACCIÓN
+========================= */
+
+#actions {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.option {
+.action-button {
     width: 100%;
-    border: none;
-    border-radius: 16px;
-    padding: 16px;
+    padding: 17px;
     text-align: left;
+    border: 0;
+    border-radius: 17px;
     color: white;
-    background: linear-gradient(135deg,#3949ab,#6a1b9a);
-    cursor: pointer;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3949ab, #7b1fa2);
+    box-shadow: 0 6px 15px rgba(0,0,0,.2);
     transition: .2s;
-    font-size: 15px;
 }
 
-.option:hover {
-    transform: translateX(6px);
-    filter: brightness(1.15);
+.action-button:hover {
+    transform: translateX(7px);
+    filter: brightness(1.2);
 }
 
-.option.danger {
-    background: linear-gradient(135deg,#8e0e00,#1f1f1f);
+.action-button:active {
+    transform: scale(.98);
 }
 
-/* ESTADÍSTICAS */
+.danger {
+    background: linear-gradient(135deg, #8b0000, #3b1010);
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.stats-title {
+    margin-top: 0;
+}
 
 .stat {
-    margin: 13px 0;
+    margin: 16px 0;
 }
 
-.stat-head {
+.stat-top {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .bar {
     height: 11px;
-    background: rgba(255,255,255,.15);
-    border-radius: 20px;
     overflow: hidden;
+    border-radius: 20px;
+    background: rgba(255,255,255,.15);
 }
 
-.fill {
+.bar-fill {
     height: 100%;
-    width: 0%;
     border-radius: 20px;
-    transition: width .6s ease;
-    background: linear-gradient(90deg,#00e5ff,#7c4dff);
+    background: linear-gradient(90deg, #00d4ff, #7c4dff);
+    transition: width .5s;
 }
+
+.trait {
+    padding: 12px;
+    margin-top: 18px;
+    border-radius: 13px;
+    text-align: center;
+    font-weight: bold;
+    background: linear-gradient(135deg,#ff9800,#e91e63);
+}
+
+/* =========================
+   NOTICIAS
+========================= */
 
 .news {
     margin-top: 15px;
 }
 
 .news h3 {
-    margin-bottom: 10px;
+    margin-top: 0;
 }
 
 .news-item {
-    background: rgba(0,0,0,.18);
-    border-radius: 12px;
     padding: 10px;
-    margin-bottom: 8px;
+    margin: 8px 0;
+    border-radius: 12px;
     font-size: 13px;
+    background: rgba(0,0,0,.20);
 }
 
-.special {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 13px;
-    background: linear-gradient(135deg,#ff9800,#e91e63);
-    font-weight: bold;
+/* =========================
+   COMBATE
+========================= */
+
+.fight {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    text-align: center;
+    background: linear-gradient(135deg,#7b1fa2,#311b92);
 }
 
-/* MODAL */
+.opponent {
+    margin: 12px 0;
+    font-size: 25px;
+    font-weight: 900;
+}
 
-.modal-bg {
+/* =========================
+   MODAL
+========================= */
+
+#modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
     z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,.78);
 }
 
-.modal {
+.modal-box {
     width: 100%;
     max-width: 600px;
-    background: linear-gradient(145deg,#28284c,#17172e);
-    border: 2px solid rgba(255,255,255,.2);
-    border-radius: 25px;
     padding: 30px;
     text-align: center;
-    box-shadow: 0 25px 70px rgba(0,0,0,.6);
-    animation: pop .35s ease;
+    border-radius: 25px;
+    background: linear-gradient(145deg,#29294d,#16162c);
+    border: 2px solid rgba(255,255,255,.2);
+    box-shadow: 0 25px 80px rgba(0,0,0,.6);
+    animation: appear .3s ease;
 }
 
-.modal h2 {
+.modal-box h2 {
     font-size: 30px;
-    margin-bottom: 15px;
 }
 
-.modal p {
+.modal-box p {
     line-height: 1.6;
     opacity: .9;
 }
 
-@keyframes pop {
+@keyframes appear {
     from {
-        transform: scale(.75);
         opacity: 0;
+        transform: scale(.75);
     }
     to {
-        transform: scale(1);
         opacity: 1;
+        transform: scale(1);
     }
 }
 
-.shake {
-    animation: shake .35s;
-}
+@media (max-width: 800px) {
 
-@keyframes shake {
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-5px); }
-}
-
-/* COMPETICIÓN */
-
-.fight-card {
-    background: linear-gradient(135deg,#7b1fa2,#311b92);
-    border-radius: 20px;
-    padding: 22px;
-    margin-bottom: 15px;
-}
-
-.opponent {
-    font-size: 25px;
-    font-weight: 900;
-    margin: 10px 0;
-}
-
-.result {
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:800px) {
-    .game-grid {
+    .layout {
         grid-template-columns: 1fr;
     }
 
-    .topbar {
-        grid-template-columns: repeat(2,1fr);
+    .header {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media(max-width:450px) {
-    .screen {
-        padding: 12px;
+@media (max-width: 450px) {
+
+    #gameScreen {
+        padding: 10px;
     }
 
     .panel {
-        padding: 17px;
+        padding: 18px;
     }
 
-    .event-title {
-        font-size: 23px;
+    #eventTitle {
+        font-size: 24px;
     }
 }
 </style>
@@ -339,100 +352,97 @@ input, select {
 
 <body>
 
-<!-- =========================
-     MENÚ INICIAL
-========================= -->
+<!-- =====================================================
+     PANTALLA INICIAL
+===================================================== -->
 
-<div id="startScreen" class="screen">
-    <div class="menu">
+<section id="startScreen">
 
-        <div class="logo">Camino al Terrero</div>
-        <div class="subtitle">
-            Tu carrera. Tus decisiones. Tu historia.
+    <div class="start-box">
+
+        <div class="logo">
+            Camino al Terrero
         </div>
 
-        <div class="card">
+        <p>
+            Construye tu carrera desde Cadete hasta la élite.
+        </p>
 
-            <h2>Comienza tu carrera</h2>
+        <input
+            id="nameInput"
+            type="text"
+            maxlength="25"
+            placeholder="Tu nombre"
+        >
 
-            <input
-                id="playerName"
-                type="text"
-                maxlength="20"
-                placeholder="Escribe tu nombre"
-            >
+        <select id="islandSelect">
+            <option value="">Selecciona tu isla</option>
+            <option value="Fuerteventura">Fuerteventura</option>
+            <option value="Gran Canaria">Gran Canaria</option>
+            <option value="Tenerife">Tenerife</option>
+            <option value="La Palma">La Palma</option>
+        </select>
 
-            <select id="islandSelect">
-                <option value="">Selecciona una isla</option>
-                <option value="Fuerteventura">Fuerteventura</option>
-                <option value="Gran Canaria">Gran Canaria</option>
-                <option value="Tenerife">Tenerife</option>
-                <option value="La Palma">La Palma</option>
-            </select>
+        <select id="teamSelect">
+            <option value="">Primero selecciona una isla</option>
+        </select>
 
-            <select id="teamSelect">
-                <option value="">Selecciona primero una isla</option>
-            </select>
+        <button
+            class="primary"
+            id="startButton">
+            🥋 COMENZAR CARRERA
+        </button>
 
-            <button class="main-btn" onclick="startCareer()">
-                COMENZAR CARRERA
-            </button>
-
-        </div>
     </div>
-</div>
+
+</section>
 
 
-<!-- =========================
-     JUEGO
-========================= -->
+<!-- =====================================================
+     PANTALLA DEL JUEGO
+===================================================== -->
 
-<div id="gameScreen" class="hidden">
+<section id="gameScreen" class="hidden">
 
-<div class="game">
+    <div class="header">
 
-    <div class="topbar">
-
-        <div class="info">
+        <div class="header-card">
             <small>Luchador</small>
-            <strong id="nameDisplay">---</strong>
+            <strong id="uiName">---</strong>
         </div>
 
-        <div class="info">
+        <div class="header-card">
             <small>Categoría</small>
-            <strong id="categoryDisplay">Cadete</strong>
+            <strong id="uiCategory">Cadete</strong>
         </div>
 
-        <div class="info">
+        <div class="header-card">
             <small>Equipo</small>
-            <strong id="teamDisplay">---</strong>
+            <strong id="uiTeam">---</strong>
         </div>
 
-        <div class="info">
-            <small>Temporada</small>
-            <strong id="seasonDisplay">1</strong>
+        <div class="header-card">
+            <small>Decisiones</small>
+            <strong id="uiDecisions">0</strong>
         </div>
 
     </div>
 
 
-    <div class="game-grid">
+    <div class="layout">
 
         <main class="panel">
 
-            <div id="mainEvent">
-
-                <div class="event-title" id="eventTitle">
-                    Comienza tu camino
-                </div>
-
-                <div class="event-text" id="eventText">
-                    Tu carrera como luchador acaba de comenzar.
-                </div>
-
-                <div id="options" class="options"></div>
-
+            <div id="eventTitle">
+                Tu carrera comienza
             </div>
+
+            <div id="eventText">
+                Prepárate para tu primer día.
+            </div>
+
+            <!-- AQUÍ SE CREAN LOS BOTONES -->
+            <div id="actions"></div>
 
         </main>
 
@@ -441,20 +451,22 @@ input, select {
 
             <div class="panel">
 
-                <h2>📊 Estadísticas</h2>
+                <h2 class="stats-title">
+                    📊 Estadísticas
+                </h2>
 
                 <div id="stats"></div>
 
-                <div id="specialTrait"></div>
+                <div id="trait"></div>
 
             </div>
 
 
             <div class="panel news">
 
-                <h3>📰 Última hora</h3>
+                <h3>📰 Noticias de última hora</h3>
 
-                <div id="news"></div>
+                <div id="newsList"></div>
 
             </div>
 
@@ -462,26 +474,24 @@ input, select {
 
     </div>
 
-</div>
-</div>
+</section>
 
 
-<!-- =========================
+<!-- =====================================================
      MODAL
-========================= -->
+===================================================== -->
 
-<div id="modalBg" class="modal-bg hidden">
+<div id="modal" class="hidden">
 
-    <div class="modal">
+    <div class="modal-box">
 
         <h2 id="modalTitle"></h2>
 
         <p id="modalText"></p>
 
         <button
-            id="modalButton"
-            class="main-btn"
-            onclick="closeModal()">
+            class="primary"
+            id="modalButton">
             CONTINUAR
         </button>
 
@@ -521,6 +531,7 @@ const teams = {
         "Club de lucha Candelaria 🔵⚪",
         "Club de lucha Bediesta ⚫🟢"
     ]
+
 };
 
 
@@ -528,7 +539,7 @@ const teams = {
    JUGADOR
 ===================================================== */
 
-let player = {
+const player = {
 
     name: "",
     island: "",
@@ -536,91 +547,58 @@ let player = {
 
     category: "Cadete",
 
-    season: 1,
-
     decisions: 0,
-
     fights: 0,
 
     seniorCallup: false,
+    careerOver: false,
 
-    eliminated: false,
-
-    trait: "normal",
+    trait: "Normal",
 
     stats: {
+
         fuerza: 0,
         tecnica: 0,
         resistencia: 0,
         velocidad: 0,
         mentalidad: 0
+
     }
+
 };
 
 
 /* =====================================================
-   NOTICIAS
-===================================================== */
-
-const newsTexts = [
-    "Un equipo ya prepara la próxima jornada.",
-    "La afición espera con ganas la siguiente luchada.",
-    "Los entrenadores empiezan a preparar nuevas estrategias.",
-    "Se acerca una jornada importante.",
-    "Varios luchadores jóvenes están llamando la atención.",
-    "Los terreros empiezan a llenarse de público.",
-    "La temporada sigue avanzando.",
-    "Los equipos ultiman sus preparativos."
-];
-
-function addNews(text) {
-
-    const news = document.getElementById("news");
-
-    const item = document.createElement("div");
-
-    item.className = "news-item";
-
-    item.textContent = text;
-
-    news.prepend(item);
-
-    while(news.children.length > 5) {
-        news.removeChild(news.lastChild);
-    }
-}
-
-
-/* =====================================================
-   ISLAS
+   SELECTOR DE EQUIPOS
 ===================================================== */
 
 document
 .getElementById("islandSelect")
-.addEventListener("change", function(){
+.addEventListener("change", function () {
 
     const island = this.value;
+    const teamSelect =
+        document.getElementById("teamSelect");
 
-    const select = document.getElementById("teamSelect");
+    teamSelect.innerHTML = "";
 
-    select.innerHTML = "";
+    if (!island) {
 
-    if(!island){
-
-        select.innerHTML =
-        `<option value="">Selecciona primero una isla</option>`;
+        teamSelect.innerHTML =
+            '<option value="">Selecciona primero una isla</option>';
 
         return;
     }
 
-    teams[island].forEach(team => {
+    teams[island].forEach(function (team) {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = team;
         option.textContent = team;
 
-        select.appendChild(option);
+        teamSelect.appendChild(option);
 
     });
 
@@ -628,57 +606,61 @@ document
 
 
 /* =====================================================
-   GENERACIÓN DE ESTADÍSTICAS
+   ESTADÍSTICAS INICIALES
 ===================================================== */
 
-function randomNormalStat(){
+function normalStat() {
 
     return Math.floor(Math.random() * 11) + 1;
 
 }
 
 
-function generateStartingStats(){
+function generateStats() {
 
     const roll = Math.random() * 100;
 
     /*
-       0 - 4     = Los Ledesma
-       4 - 8     = Gigante Herreño
-       8 - 100   = Normal
+       92% NORMAL
+       4% LOS LEDESMA
+       4% GIGANTE HERREÑO
     */
 
-    if(roll < 4){
+    if (roll < 4) {
 
         player.trait = "Los Ledesma";
 
         player.stats.fuerza =
-            Math.floor(Math.random() * 6) + 10;
+            Math.floor(Math.random() * 6) + 12;
 
         player.stats.tecnica =
-            Math.floor(Math.random() * 6) + 10;
+            Math.floor(Math.random() * 6) + 12;
 
         player.stats.resistencia =
-            Math.floor(Math.random() * 6) + 10;
+            Math.floor(Math.random() * 6) + 12;
 
         player.stats.velocidad =
-            Math.floor(Math.random() * 6) + 10;
+            Math.floor(Math.random() * 6) + 12;
 
         player.stats.mentalidad =
-            Math.floor(Math.random() * 6) + 10;
+            Math.floor(Math.random() * 6) + 12;
 
     }
 
-    else if(roll < 8){
+    else if (roll < 8) {
 
         player.trait = "El Gigante Herreño";
 
+        /*
+           EXACTAMENTE 40 DE FUERZA
+        */
+
         player.stats.fuerza = 40;
 
-        player.stats.tecnica = randomNormalStat();
-        player.stats.resistencia = randomNormalStat();
-        player.stats.velocidad = randomNormalStat();
-        player.stats.mentalidad = randomNormalStat();
+        player.stats.tecnica = normalStat();
+        player.stats.resistencia = normalStat();
+        player.stats.velocidad = normalStat();
+        player.stats.mentalidad = normalStat();
 
     }
 
@@ -686,34 +668,57 @@ function generateStartingStats(){
 
         player.trait = "Normal";
 
-        player.stats.fuerza = randomNormalStat();
-        player.stats.tecnica = randomNormalStat();
-        player.stats.resistencia = randomNormalStat();
-        player.stats.velocidad = randomNormalStat();
-        player.stats.mentalidad = randomNormalStat();
+        player.stats.fuerza = normalStat();
+        player.stats.tecnica = normalStat();
+        player.stats.resistencia = normalStat();
+        player.stats.velocidad = normalStat();
+        player.stats.mentalidad = normalStat();
 
     }
+
 }
 
 
 /* =====================================================
-   INICIAR CARRERA
+   BOTÓN COMENZAR
 ===================================================== */
 
-function startCareer(){
+document
+.getElementById("startButton")
+.addEventListener("click", startGame);
+
+
+function startGame() {
 
     const name =
-        document.getElementById("playerName").value.trim();
+        document.getElementById("nameInput")
+        .value.trim();
 
     const island =
-        document.getElementById("islandSelect").value;
+        document.getElementById("islandSelect")
+        .value;
 
     const team =
-        document.getElementById("teamSelect").value;
+        document.getElementById("teamSelect")
+        .value;
 
-    if(!name || !island || !team){
+    if (!name) {
 
-        alert("Completa tu nombre, isla y equipo.");
+        alert("Escribe tu nombre.");
+
+        return;
+    }
+
+    if (!island) {
+
+        alert("Selecciona una isla.");
+
+        return;
+    }
+
+    if (!team) {
+
+        alert("Selecciona un equipo.");
 
         return;
     }
@@ -722,36 +727,40 @@ function startCareer(){
     player.island = island;
     player.team = team;
 
-    generateStartingStats();
+    generateStats();
 
     document
-    .getElementById("startScreen")
-    .classList.add("hidden");
+        .getElementById("startScreen")
+        .classList.add("hidden");
 
     document
-    .getElementById("gameScreen")
-    .classList.remove("hidden");
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
 
     updateUI();
 
-    addNews("🗞️ ¡Ha comenzado una nueva carrera en el terrero!");
+    addNews(
+        "🥋 " + player.name +
+        " comienza su carrera como Cadete."
+    );
 
-    if(player.trait !== "Normal"){
+    if (player.trait !== "Normal") {
 
-        setTimeout(() => {
+        showModal(
+            "✨ Característica especial",
+            "Tu carrera comienza con: " +
+            player.trait,
+            function () {
+                nextDecision();
+            }
+        );
 
-            showModal(
-                "✨ Algo especial",
-                `Tu carrera comienza con una característica especial: ${player.trait}.`
-            );
+    } else {
 
-        }, 500);
+        nextDecision();
 
     }
 
-    setTimeout(() => {
-        nextDecision();
-    }, 700);
 }
 
 
@@ -759,73 +768,105 @@ function startCareer(){
    ACTUALIZAR INTERFAZ
 ===================================================== */
 
-function updateUI(){
+function updateUI() {
 
-    document.getElementById("nameDisplay").textContent =
+    document.getElementById("uiName").textContent =
         player.name;
 
-    document.getElementById("categoryDisplay").textContent =
+    document.getElementById("uiCategory").textContent =
         player.category;
 
-    document.getElementById("teamDisplay").textContent =
+    document.getElementById("uiTeam").textContent =
         player.team;
 
-    document.getElementById("seasonDisplay").textContent =
-        player.season;
+    document.getElementById("uiDecisions").textContent =
+        player.decisions;
 
-    const statsDiv =
+
+    const stats =
         document.getElementById("stats");
 
-    statsDiv.innerHTML = "";
+    stats.innerHTML = "";
 
     const names = {
+
         fuerza: "💪 Fuerza",
         tecnica: "🥋 Técnica",
         resistencia: "❤️ Resistencia",
         velocidad: "⚡ Velocidad",
         mentalidad: "🧠 Mentalidad"
+
     };
 
-    for(const stat in player.stats){
+    for (const stat in player.stats) {
 
         const value = player.stats[stat];
 
-        const container =
+        const div =
             document.createElement("div");
 
-        container.className = "stat";
+        div.className = "stat";
 
-        container.innerHTML = `
-            <div class="stat-head">
+        div.innerHTML = `
+            <div class="stat-top">
                 <span>${names[stat]}</span>
                 <strong>${value}</strong>
             </div>
 
             <div class="bar">
-                <div class="fill"
-                     style="width:${Math.min(value,100)}%">
+                <div
+                    class="bar-fill"
+                    style="width:${Math.min(value,100)}%">
                 </div>
             </div>
         `;
 
-        statsDiv.appendChild(container);
+        stats.appendChild(div);
+
     }
 
-    const traitDiv =
-        document.getElementById("specialTrait");
 
-    if(player.trait !== "Normal"){
+    const trait =
+        document.getElementById("trait");
 
-        traitDiv.innerHTML = `
-            <div class="special">
-                ✨ ${player.trait}
-            </div>
-        `;
+    if (player.trait !== "Normal") {
+
+        trait.innerHTML =
+            `<div class="trait">✨ ${player.trait}</div>`;
 
     } else {
 
-        traitDiv.innerHTML = "";
+        trait.innerHTML = "";
+
     }
+
+}
+
+
+/* =====================================================
+   NOTICIAS
+===================================================== */
+
+function addNews(text) {
+
+    const list =
+        document.getElementById("newsList");
+
+    const item =
+        document.createElement("div");
+
+    item.className = "news-item";
+
+    item.textContent = text;
+
+    list.prepend(item);
+
+    while (list.children.length > 5) {
+
+        list.removeChild(list.lastChild);
+
+    }
+
 }
 
 
@@ -833,117 +874,118 @@ function updateUI(){
    DECISIONES
 ===================================================== */
 
-const normalDecisions = [
+const decisions = [
 
-{
-    title: "Entrenamiento técnico",
-    text: "El entrenador prepara una sesión centrada en técnica.",
-    options: [
-        {
-            text: "🥋 Trabajar la técnica",
-            effects: {tecnica: 2},
-            result: "Has trabajado duro y notas que tus movimientos son más precisos."
-        },
-        {
-            text: "💪 Priorizar la potencia",
-            effects: {fuerza: 2},
-            result: "Sales del entrenamiento con buenas sensaciones físicas."
-        },
-        {
-            text: "🧠 Analizar a otros luchadores",
-            effects: {mentalidad: 2},
-            result: "Aprendes observando cómo luchan los demás."
-        }
-    ]
-},
+    {
+        title: "🏋️ Entrenamiento",
+        text: "Hoy tienes una sesión importante. ¿Cómo quieres afrontarla?",
+        options: [
+            {
+                text: "💪 Entrenar fuerza",
+                effects: { fuerza: 2 },
+                result: "Has trabajado duro tu potencia."
+            },
+            {
+                text: "🥋 Trabajar técnica",
+                effects: { tecnica: 2 },
+                result: "Has perfeccionado tus movimientos."
+            },
+            {
+                text: "❤️ Trabajar resistencia",
+                effects: { resistencia: 2 },
+                result: "Has conseguido completar una sesión muy exigente."
+            }
+        ]
+    },
 
-{
-    title: "Día duro",
-    text: "El entrenamiento de hoy está siendo especialmente exigente.",
-    options: [
-        {
-            text: "🔥 Aguantar hasta el final",
-            effects: {resistencia: 2},
-            result: "No te rindes y completas la sesión."
-        },
-        {
-            text: "⚡ Trabajar explosividad",
-            effects: {velocidad: 2},
-            result: "Trabajas movimientos rápidos y explosivos."
-        },
-        {
-            text: "🧠 Escuchar al entrenador",
-            effects: {mentalidad: 2},
-            result: "Aprendes a controlar mejor el esfuerzo."
-        }
-    ]
-},
+    {
+        title: "🥋 Sesión técnica",
+        text: "El entrenador quiere que mejores un aspecto concreto.",
+        options: [
+            {
+                text: "⚡ Velocidad",
+                effects: { velocidad: 2 },
+                result: "Tus movimientos son cada vez más rápidos."
+            },
+            {
+                text: "🧠 Concentración",
+                effects: { mentalidad: 2 },
+                result: "Aprendes a mantener la cabeza fría."
+            },
+            {
+                text: "🥋 Técnica",
+                effects: { tecnica: 3 },
+                result: "Repites los movimientos hasta perfeccionarlos."
+            }
+        ]
+    },
 
-{
-    title: "Consejo del entrenador",
-    text: "Tu entrenador te pide que elijas en qué aspecto quieres mejorar.",
-    options: [
-        {
-            text: "🥋 Técnica",
-            effects: {tecnica: 2},
-            result: "El trabajo técnico empieza a dar frutos."
-        },
-        {
-            text: "💪 Fuerza",
-            effects: {fuerza: 2},
-            result: "Cada vez tienes más potencia."
-        },
-        {
-            text: "❤️ Resistencia",
-            effects: {resistencia: 2},
-            result: "Tu físico aguanta cada vez más."
-        }
-    ]
-},
+    {
+        title: "🔥 Entrenamiento intenso",
+        text: "La sesión está siendo mucho más dura de lo habitual.",
+        options: [
+            {
+                text: "🔥 Aguantar hasta el final",
+                effects: { resistencia: 3 },
+                result: "No te rindes y terminas la sesión."
+            },
+            {
+                text: "💪 Darlo todo en potencia",
+                effects: { fuerza: 3 },
+                result: "Tu potencia mejora después de la sesión."
+            },
+            {
+                text: "🧠 Escuchar al entrenador",
+                effects: { mentalidad: 2 },
+                result: "Aprendes a controlar mejor tus esfuerzos."
+            }
+        ]
+    },
 
-{
-    title: "Antes de una luchada",
-    text: "Quedan pocos días para volver al terrero.",
-    options: [
-        {
-            text: "🎯 Preparar una estrategia",
-            effects: {mentalidad: 2},
-            result: "Llegas con una idea clara de lo que quieres hacer."
-        },
-        {
-            text: "🏋️ Entrenar fuerte",
-            effects: {fuerza: 2, resistencia: 1},
-            result: "El entrenamiento ha sido intenso."
-        },
-        {
-            text: "🥋 Perfeccionar movimientos",
-            effects: {tecnica: 2},
-            result: "Repasas tus movimientos una y otra vez."
-        }
-    ]
-},
+    {
+        title: "🎯 Preparación",
+        text: "Se acerca una competición y tienes que decidir cómo prepararte.",
+        options: [
+            {
+                text: "🥋 Practicar movimientos",
+                effects: { tecnica: 2 },
+                result: "Repasas tus movimientos una y otra vez."
+            },
+            {
+                text: "⚡ Trabajar explosividad",
+                effects: { velocidad: 2 },
+                result: "Tus arrancadas mejoran."
+            },
+            {
+                text: "🧠 Preparar una estrategia",
+                effects: { mentalidad: 3 },
+                result: "Llegas con una estrategia clara."
+            }
+        ]
+    },
 
-{
-    title: "Sesión especial",
-    text: "El equipo prepara una sesión diferente.",
-    options: [
-        {
-            text: "⚡ Trabajar velocidad",
-            effects: {velocidad: 3},
-            result: "Tus movimientos se sienten más rápidos."
-        },
-        {
-            text: "💪 Trabajar potencia",
-            effects: {fuerza: 3},
-            result: "Notas una mejora en tu potencia."
-        },
-        {
-            text: "🧠 Trabajar concentración",
-            effects: {mentalidad: 3},
-            result: "Aprendes a mantener la calma."
-        }
-    ]
-}
+    {
+        title: "🏃 Día de entrenamiento",
+        text: "Tienes varias opciones para aprovechar el día.",
+        options: [
+            {
+                text: "🏃 Carrera y resistencia",
+                effects: { resistencia: 2 },
+                result: "Tu físico aguanta cada vez más."
+            },
+            {
+                text: "💪 Trabajo físico",
+                effects: { fuerza: 2 },
+                result: "Sales con mejores sensaciones físicas."
+            },
+            {
+                text: "🥋 Técnica individual",
+                effects: { tecnica: 2 },
+                result: "Tu técnica sigue evolucionando."
+            }
+        ]
+    }
+
 ];
 
 
@@ -951,35 +993,42 @@ const normalDecisions = [
    SIGUIENTE DECISIÓN
 ===================================================== */
 
-function nextDecision(){
+function nextDecision() {
 
-    if(player.eliminated) return;
-
-    player.decisions++;
+    if (player.careerOver) return;
 
     /*
-       Cada 2 decisiones hay competición,
-       pero la convocatoria Senior aparece
-       exactamente después de la tercera.
+       La convocatoria aparece EXACTAMENTE
+       después de 3 decisiones.
     */
 
-    if(player.decisions === 3 && !player.seniorCallup){
+    if (
+        player.decisions === 3 &&
+        !player.seniorCallup
+    ) {
 
         showSeniorCallup();
 
         return;
     }
 
-    if(
+
+    /*
+       Después de aceptar Senior,
+       cada 2 decisiones hay competición.
+    */
+
+    if (
         player.seniorCallup &&
         player.decisions > 3 &&
         player.decisions % 2 === 0
-    ){
+    ) {
 
         startFight();
 
         return;
     }
+
 
     showDecision();
 
@@ -987,15 +1036,18 @@ function nextDecision(){
 
 
 /* =====================================================
-   DECISIÓN NORMAL
+   MOSTRAR DECISIÓN
 ===================================================== */
 
-function showDecision(){
+function showDecision() {
 
     const decision =
-        normalDecisions[
-            Math.floor(Math.random() * normalDecisions.length)
+        decisions[
+            Math.floor(
+                Math.random() * decisions.length
+            )
         ];
+
 
     document.getElementById("eventTitle").textContent =
         decision.title;
@@ -1003,66 +1055,92 @@ function showDecision(){
     document.getElementById("eventText").textContent =
         decision.text;
 
-    const options =
-        document.getElementById("options");
 
-    options.innerHTML = "";
+    const actions =
+        document.getElementById("actions");
 
-    decision.options.forEach(option => {
+    /*
+       AQUÍ SE BORRAN LOS BOTONES ANTERIORES
+       Y SE CREAN LOS NUEVOS.
+    */
+
+    actions.innerHTML = "";
+
+
+    decision.options.forEach(function (option) {
 
         const button =
             document.createElement("button");
 
-        button.className = "option";
+        button.type = "button";
 
-        button.textContent = option.text;
+        button.className =
+            "action-button";
 
-        button.onclick = () => {
+        button.textContent =
+            option.text;
+
+        button.addEventListener("click", function () {
 
             applyEffects(option.effects);
 
-            showResult(
-                option.result,
-                () => nextDecision()
-            );
-        };
+            player.decisions++;
 
-        options.appendChild(button);
+            updateUI();
+
+            showResult(
+                "📢 Resultado",
+                option.result,
+                function () {
+                    nextDecision();
+                }
+            );
+
+        });
+
+        actions.appendChild(button);
+
     });
 
 
     /*
        MÉTODO PROHIBIDO:
-       aparece como opción muy rara,
-       nunca como evento obligatorio.
+       2% DE PROBABILIDAD DE APARECER
+       COMO UNA OPCIÓN MÁS.
     */
 
-    if(Math.random() < 0.02){
+    if (Math.random() < 0.02) {
 
-        const cheatingButton =
+        const forbidden =
             document.createElement("button");
 
-        cheatingButton.className =
-            "option danger";
+        forbidden.type = "button";
 
-        cheatingButton.textContent =
+        forbidden.className =
+            "action-button danger";
+
+        forbidden.textContent =
             "⚠️ Hacer trampa";
 
-        cheatingButton.onclick =
-            () => prohibitedMethod();
+        forbidden.addEventListener(
+            "click",
+            forbiddenChoice
+        );
 
-        options.appendChild(cheatingButton);
+        actions.appendChild(forbidden);
+
     }
+
 }
 
 
 /* =====================================================
-   EFECTOS
+   APLICAR ESTADÍSTICAS
 ===================================================== */
 
-function applyEffects(effects){
+function applyEffects(effects) {
 
-    for(const stat in effects){
+    for (const stat in effects) {
 
         player.stats[stat] += effects[stat];
 
@@ -1074,38 +1152,48 @@ function applyEffects(effects){
                     player.stats[stat]
                 )
             );
+
     }
 
     updateUI();
+
 }
 
 
 /* =====================================================
-   RESULTADO
+   RESULTADO DE DECISIÓN
 ===================================================== */
 
-function showResult(text, callback){
+function showResult(title, text, callback) {
 
     document.getElementById("eventTitle").textContent =
-        "📢 Decisión";
+        title;
 
     document.getElementById("eventText").textContent =
         text;
 
-    document.getElementById("options").innerHTML = "";
+    const actions =
+        document.getElementById("actions");
+
+    actions.innerHTML = "";
 
     const button =
         document.createElement("button");
 
-    button.className = "main-btn";
+    button.type = "button";
 
-    button.textContent = "CONTINUAR";
+    button.className = "primary";
 
-    button.onclick = callback;
+    button.textContent =
+        "➡️ CONTINUAR";
 
-    document
-    .getElementById("options")
-    .appendChild(button);
+    button.addEventListener(
+        "click",
+        callback
+    );
+
+    actions.appendChild(button);
+
 }
 
 
@@ -1113,239 +1201,212 @@ function showResult(text, callback){
    CONVOCATORIA SENIOR
 ===================================================== */
 
-function showSeniorCallup(){
+function showSeniorCallup() {
 
-    document.getElementById("modalTitle").textContent =
-        "🥇 ¡Convocado para Senior!";
+    showModal(
+        "🥇 ¡CONVOCADO PARA SENIOR!",
+        "El entrenador quiere que tengas la oportunidad de luchar con el equipo Senior. Si aceptas, seguirás siendo oficialmente Cadete, pero podrás disputar luchadas Senior.",
+        acceptSenior
+    );
 
-    document.getElementById("modalText").textContent =
-        `El cuerpo técnico de ${player.team} quiere que tengas la oportunidad de luchar en la categoría Senior. 
-        Aceptar la convocatoria NO cambia tu categoría oficial: seguirás siendo Cadete. 
-        Simplemente podrás participar también en luchadas Senior.`;
-
-    document.getElementById("modalButton").textContent =
-        "ACEPTAR CONVOCATORIA";
-
-    document.getElementById("modalButton").onclick =
-        acceptSeniorCallup;
-
-    document
-    .getElementById("modalBg")
-    .classList.remove("hidden");
 }
 
 
-function acceptSeniorCallup(){
+function acceptSenior() {
 
     player.seniorCallup = true;
 
     /*
        IMPORTANTE:
-       La categoría sigue siendo Cadete.
+       NO CAMBIAMOS LA CATEGORÍA.
     */
 
     player.category = "Cadete";
 
-    document
-    .getElementById("modalBg")
-    .classList.add("hidden");
+    closeModal();
 
     addNews(
         "🥇 " +
         player.name +
-        " ha sido convocado para luchar con el equipo Senior."
+        " ha sido convocado para luchar con Senior."
     );
 
-    updateUI();
+    showResult(
+        "🔥 Nueva oportunidad",
+        "Has aceptado la convocatoria. Sigues siendo Cadete, pero ahora puedes luchar también con Senior.",
+        nextDecision
+    );
 
-    document.getElementById("eventTitle").textContent =
-        "🔥 Una nueva oportunidad";
-
-    document.getElementById("eventText").textContent =
-        "Has aceptado la convocatoria. Sigues siendo Cadete, pero ahora puedes disputar luchadas Senior.";
-
-    document.getElementById("options").innerHTML = "";
-
-    const button =
-        document.createElement("button");
-
-    button.className = "main-btn";
-
-    button.textContent = "SEGUIR";
-
-    button.onclick = nextDecision;
-
-    document
-    .getElementById("options")
-    .appendChild(button);
 }
 
 
 /* =====================================================
-   COMPETICIONES
+   COMBATES
 ===================================================== */
 
 const opponents = [
-    "un cadete de otro equipo",
-    "un luchador joven muy técnico",
-    "un rival conocido por su fuerza",
-    "un luchador que destaca por su resistencia",
-    "un rival rápido y explosivo",
-    "un luchador experimentado"
+    "un rival muy técnico",
+    "un luchador conocido por su fuerza",
+    "un rival muy rápido",
+    "un luchador muy resistente",
+    "un rival con mucha experiencia",
+    "un luchador joven que está destacando"
 ];
 
 
-function startFight(){
+function startFight() {
 
     player.fights++;
 
     const opponent =
         opponents[
-            Math.floor(Math.random() * opponents.length)
+            Math.floor(
+                Math.random() * opponents.length
+            )
         ];
+
 
     document.getElementById("eventTitle").textContent =
         "🏆 DÍA DE COMPETICIÓN";
 
     document.getElementById("eventText").innerHTML = `
-        <div class="fight-card">
-            <div>Tu oponente en esta agarrada es:</div>
+        <div class="fight">
+            <div>Tu oponente en esta agarrada es...</div>
             <div class="opponent">${opponent}</div>
-            <div>¿Qué decides hacer?</div>
+            <div>¿Qué vas a hacer?</div>
         </div>
     `;
 
-    const options =
-        document.getElementById("options");
 
-    options.innerHTML = "";
+    const actions =
+        document.getElementById("actions");
 
-    const choices = [
+    actions.innerHTML = "";
+
+
+    const fightOptions = [
 
         {
             text: "🥋 Buscar una pardelera",
-            stat: "tecnica",
-            success: 0.55
+            stat: "tecnica"
         },
 
         {
-            text: "💪 Intentar imponerte con fuerza",
-            stat: "fuerza",
-            success: 0.50
+            text: "💪 Luchar con potencia",
+            stat: "fuerza"
         },
 
         {
-            text: "🧠 Esperar un error",
-            stat: "mentalidad",
-            success: 0.52
+            text: "🧠 Defender y esperar un error",
+            stat: "mentalidad"
         },
 
         {
-            text: "⚡ Atacar rápidamente",
-            stat: "velocidad",
-            success: 0.48
+            text: "⚡ Atacar rápido",
+            stat: "velocidad"
         }
 
     ];
 
-    choices.forEach(choice => {
+
+    fightOptions.forEach(function (choice) {
 
         const button =
             document.createElement("button");
 
-        button.className = "option";
+        button.type = "button";
 
-        button.textContent = choice.text;
+        button.className =
+            "action-button";
 
-        button.onclick = () => {
+        button.textContent =
+            choice.text;
 
-            resolveFight(choice);
+        button.addEventListener(
+            "click",
+            function () {
 
-        };
+                resolveFight(choice);
 
-        options.appendChild(button);
+            }
+        );
+
+        actions.appendChild(button);
+
     });
+
 }
 
 
 /* =====================================================
-   RESULTADO LUCHA
+   RESOLVER LUCHA
 ===================================================== */
 
-function resolveFight(choice){
+function resolveFight(choice) {
 
-    const stat =
+    const value =
         player.stats[choice.stat];
 
-    const bonus =
-        Math.min(stat / 100, .40);
+    /*
+       La estadística influye,
+       pero nunca garantiza la victoria.
+    */
 
-    const chance =
-        choice.success + bonus - .20;
+    let chance =
+        0.35 + (value / 100) * 0.45;
 
-    const roll =
-        Math.random();
+    chance =
+        Math.min(.85, chance);
+
 
     const won =
-        roll < chance;
+        Math.random() < chance;
 
-    document.getElementById("options").innerHTML = "";
 
-    if(won){
+    if (won) {
 
-        player.stats.mentalidad += 1;
-
-        showFightResult(
-            "🔥 ¡Has ganado la agarrada!",
-            "Tu decisión ha funcionado y consigues imponerte en el terrero."
-        );
+        player.stats.mentalidad =
+            Math.min(
+                100,
+                player.stats.mentalidad + 1
+            );
 
         addNews(
-            `🏆 ${player.name} consigue una victoria en competición.`
+            "🏆 " +
+            player.name +
+            " consigue una victoria."
+        );
+
+        showResult(
+            "🔥 ¡VICTORIA!",
+            "Has ganado la agarrada. Tu actuación te da confianza para la próxima.",
+            nextDecision
         );
 
     } else {
 
-        player.stats.resistencia =
+        player.stats.mentalidad =
             Math.max(
                 1,
-                player.stats.resistencia - 1
+                player.stats.mentalidad - 1
             );
 
-        showFightResult(
-            "❌ Has perdido la agarrada",
-            "El rival consiguió imponerse esta vez. Toca aprender y seguir trabajando."
+        addNews(
+            "📢 " +
+            player.name +
+            " ha sufrido una derrota."
         );
 
-        addNews(
-            `📢 ${player.name} ha sufrido una derrota en competición.`
+        showResult(
+            "❌ DERROTA",
+            "Esta vez el rival consiguió imponerse. Toca aprender y seguir trabajando.",
+            nextDecision
         );
+
     }
 
     updateUI();
-}
 
-
-function showFightResult(title,text){
-
-    document.getElementById("eventTitle").textContent =
-        title;
-
-    document.getElementById("eventText").textContent =
-        text;
-
-    const button =
-        document.createElement("button");
-
-    button.className = "main-btn";
-
-    button.textContent = "CONTINUAR";
-
-    button.onclick = nextDecision;
-
-    document
-    .getElementById("options")
-    .appendChild(button);
 }
 
 
@@ -1353,132 +1414,152 @@ function showFightResult(title,text){
    MÉTODO PROHIBIDO
 ===================================================== */
 
-function prohibitedMethod(){
+function forbiddenChoice() {
 
-    document.getElementById("eventTitle").textContent =
-        "⚠️ Una decisión peligrosa";
+    showResult(
+        "⚠️ Una decisión peligrosa",
+        "Te han ofrecido una forma de conseguir una ventaja haciendo trampa. Puedes rechazarla y continuar tu carrera normalmente, o arriesgarte.",
+        function () {
 
-    document.getElementById("eventText").textContent =
-        "Te han ofrecido la posibilidad de hacer trampa para obtener una ventaja. ¿Quieres arriesgar tu carrera?";
+            const actions =
+                document.getElementById("actions");
 
-    const options =
-        document.getElementById("options");
+            actions.innerHTML = "";
 
-    options.innerHTML = "";
 
-    const accept =
-        document.createElement("button");
+            const risk =
+                document.createElement("button");
 
-    accept.className = "option danger";
+            risk.className =
+                "action-button danger";
 
-    accept.textContent =
-        "⚠️ Sí, arriesgarme";
+            risk.textContent =
+                "⚠️ Aceptar el riesgo";
 
-    accept.onclick =
-        () => cheatingRoulette();
-
-    const reject =
-        document.createElement("button");
-
-    reject.className = "option";
-
-    reject.textContent =
-        "❌ No, seguir limpiamente";
-
-    reject.onclick =
-        () => {
-
-            showResult(
-                "Has decidido seguir tu carrera de forma limpia.",
-                () => nextDecision()
+            risk.addEventListener(
+                "click",
+                forbiddenRoulette
             );
 
-        };
 
-    options.appendChild(accept);
-    options.appendChild(reject);
+            const refuse =
+                document.createElement("button");
+
+            refuse.className =
+                "action-button";
+
+            refuse.textContent =
+                "❌ Rechazar";
+
+            refuse.addEventListener(
+                "click",
+                function () {
+
+                    showResult(
+                        "💪 Has elegido el camino limpio",
+                        "Decides continuar tu carrera sin hacer trampas.",
+                        nextDecision
+                    );
+
+                }
+            );
+
+
+            actions.appendChild(risk);
+            actions.appendChild(refuse);
+
+        }
+    );
+
 }
 
 
 /* =====================================================
-   RULETA
+   RULETA DEL MÉTODO PROHIBIDO
 ===================================================== */
 
-function cheatingRoulette(){
+function forbiddenRoulette() {
 
-    document.getElementById("eventTitle").textContent =
-        "🎰 La ruleta decide tu destino";
+    showModal(
+        "🎰 RULETA",
+        "Has decidido arriesgar tu carrera. La ruleta determinará el resultado.",
+        function () {
 
-    document.getElementById("eventText").textContent =
-        "Hay un 20% de posibilidades de que la trampa no sea detectada y un 80% de que te descubran.";
+            closeModal();
 
-    document.getElementById("options").innerHTML = "";
+            let count = 0;
 
-    const button =
-        document.createElement("button");
+            const actions =
+                document.getElementById("actions");
 
-    button.className = "main-btn";
+            actions.innerHTML = `
+                <button
+                    class="primary"
+                    id="rouletteButton"
+                    disabled>
+                    🎰 GIRANDO...
+                </button>
+            `;
 
-    button.textContent =
-        "GIRAR RULETA";
+            const rouletteButton =
+                document.getElementById("rouletteButton");
 
-    button.onclick = () => {
 
-        button.disabled = true;
+            const interval =
+                setInterval(function () {
 
-        let spins = 0;
+                    rouletteButton.textContent =
+                        "🎰 " +
+                        Math.floor(
+                            Math.random() * 100
+                        ) +
+                        "%";
 
-        const interval =
-            setInterval(() => {
+                    count++;
 
-                button.textContent =
-                    "🎰 " +
-                    Math.floor(Math.random()*100) +
-                    "%";
 
-                spins++;
+                    if (count >= 15) {
 
-                if(spins >= 12){
+                        clearInterval(interval);
 
-                    clearInterval(interval);
+                        /*
+                           80% descubierto
+                           20% funciona
+                        */
 
-                    const success =
-                        Math.random() < .20;
+                        const works =
+                            Math.random() < 0.20;
 
-                    if(success){
 
-                        player.stats.fuerza += 20;
+                        if (works) {
 
-                        player.stats.fuerza =
-                            Math.min(
-                                100,
-                                player.stats.fuerza
+                            player.stats.fuerza =
+                                Math.min(
+                                    100,
+                                    player.stats.fuerza + 20
+                                );
+
+                            updateUI();
+
+                            showResult(
+                                "⚠️ Ha funcionado",
+                                "Has obtenido una ventaja, pero ahora tendrás que vivir con el riesgo de haber hecho trampa.",
+                                nextDecision
                             );
 
-                        updateUI();
+                        } else {
 
-                        showResult(
-                            "😮 Nadie te ha descubierto.",
-                            () => nextDecision()
-                        );
+                            endCareer();
 
-                        addNews(
-                            "⚠️ Se rumorea que un luchador obtuvo una ventaja de forma irregular."
-                        );
-
-                    } else {
-
-                        endCareer();
+                        }
 
                     }
-                }
 
-            },100);
-    };
+                }, 120);
 
-    document
-    .getElementById("options")
-    .appendChild(button);
+        }
+    );
+
 }
 
 
@@ -1486,57 +1567,55 @@ function cheatingRoulette(){
    FIN DE CARRERA
 ===================================================== */
 
-function endCareer(){
+function endCareer() {
 
-    player.eliminated = true;
+    player.careerOver = true;
 
-    document.getElementById("modalTitle").textContent =
-        "🚨 CARRERA TERMINADA";
+    showModal(
+        "🚨 CARRERA TERMINADA",
+        "Te han descubierto utilizando un método prohibido. Tu carrera deportiva termina aquí.",
+        function () {
 
-    document.getElementById("modalText").textContent =
-        "Has sido descubierto haciendo trampa. Tu carrera deportiva termina aquí.";
+            location.reload();
 
-    document.getElementById("modalButton").textContent =
-        "COMENZAR DE NUEVO";
+        }
+    );
 
-    document.getElementById("modalButton").onclick =
-        () => location.reload();
-
-    document
-    .getElementById("modalBg")
-    .classList.remove("hidden");
 }
 
 
 /* =====================================================
-   MODAL NORMAL
+   MODALES
 ===================================================== */
 
-function showModal(title,text){
-
-    document.getElementById("modalTitle").textContent =
-        title;
-
-    document.getElementById("modalText").textContent =
-        text;
-
-    document.getElementById("modalButton").textContent =
-        "CONTINUAR";
-
-    document.getElementById("modalButton").onclick =
-        closeModal;
+function showModal(title, text, callback) {
 
     document
-    .getElementById("modalBg")
-    .classList.remove("hidden");
+        .getElementById("modal")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("modalTitle")
+        .textContent = title;
+
+    document
+        .getElementById("modalText")
+        .textContent = text;
+
+
+    const button =
+        document.getElementById("modalButton");
+
+    button.onclick = callback;
+
 }
 
 
-function closeModal(){
+function closeModal() {
 
     document
-    .getElementById("modalBg")
-    .classList.add("hidden");
+        .getElementById("modal")
+        .classList.add("hidden");
 
 }
 
@@ -1545,18 +1624,39 @@ function closeModal(){
    NOTICIAS AUTOMÁTICAS
 ===================================================== */
 
-setInterval(() => {
+const automaticNews = [
 
-    if(!player.name || player.eliminated) return;
+    "📰 Los equipos ya preparan la próxima jornada.",
+    "📰 La afición espera con ganas la siguiente luchada.",
+    "📰 Los entrenadores estudian nuevas estrategias.",
+    "📰 Se acerca una jornada importante.",
+    "📰 Varios luchadores jóvenes están destacando.",
+    "📰 Los terreros empiezan a llenarse.",
+    "📰 La temporada continúa avanzando."
 
-    const text =
-        newsTexts[
-            Math.floor(Math.random()*newsTexts.length)
-        ];
+];
 
-    addNews("📰 " + text);
 
-},30000);
+setInterval(function () {
+
+    if (
+        player.name &&
+        !player.careerOver
+    ) {
+
+        const text =
+            automaticNews[
+                Math.floor(
+                    Math.random() *
+                    automaticNews.length
+                )
+            ];
+
+        addNews(text);
+
+    }
+
+}, 30000);
 
 </script>
 
